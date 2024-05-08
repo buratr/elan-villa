@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;content-visibility:visible" viewBox="0 0 500 500">
+    <defs>
+      <clipPath id="c">
+        <path d="M0 0h500v500H0z"/>
+      </clipPath>
+      <filter id="a" width="100%" height="100%" x="0%" y="0%" filterUnits="objectBoundingBox">
+        <feComponentTransfer in="SourceGraphic">
+          <feFuncA tableValues="1.0 0.0" type="table"/>
+        </feComponentTransfer>
+      </filter>
+      <mask id="d" mask-type="alpha">
+        <g filter="url(#a)">
+          <use xmlns:ns1="http://www.w3.org/1999/xlink" ns1:href="#b"/>
+        </g>
+      </mask>
+      <g id="b" display="block">
+        <path fill="#121331" d="M158.41 165.99c-24.5-.6-30.36 13.02-13.1 30.41l76.17 76.67a42.74 42.74 0 0 0 61.78-.78l64.83-68.64c16.82-17.81 10.6-32.76-13.9-33.36l-175.78-4.3z"/>
+        <path fill-opacity="0" stroke="#08A88A" stroke-width="0" d="M158.41 165.99c-24.5-.6-30.36 13.02-13.1 30.41l76.17 76.67a42.74 42.74 0 0 0 61.78-.78l64.83-68.64c16.82-17.81 10.6-32.76-13.9-33.36l-175.78-4.3z"/>
+      </g>
+    </defs>
+    <g clip-path="url(#c)">
+      <g fill="none" display="block">
+        <path d="M194.36 241.06a100.63 100.63 0 0 1-13.09-11.05l-86.22-86.39m313.6.02-86.23 86.37a100.37 100.37 0 0 1-8.48 7.6"/>
+        <path stroke="#121330" stroke-linecap="round" stroke-linejoin="round" stroke-width="12.95" d="m95.04 143.63 130.66 130.9a36.94 36.94 0 0 0 52.28 0l130.65-130.87"/>
+        <path stroke="#121330" stroke-linecap="round" stroke-linejoin="round" stroke-width="12.95" d="M92.8 140.91v210.84h318.35V140.94L92.8 140.9z"/>
+      </g>
+      <g display="block" mask="url(#d)">
+        <path fill="none" stroke="#121330" stroke-linecap="round" stroke-linejoin="round" stroke-width="12.95" d="M254.1 230.92c26.68.42 53.22 9.48 73.56 27.18l78.66 68.47m-307.1-1.33 77.6-67.29c21.3-18.46 49.36-27.47 77.27-27.03"/>
+      </g>
+    </g>
+  </svg>

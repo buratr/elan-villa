@@ -1,0 +1,54 @@
+{
+	"name": "elan-villa",
+	"version": "0.0.1",
+	"private": true,
+	"scripts": {
+		"dev": "vite dev",
+		"build": "vite build",
+		"preview": "vite preview",
+		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
+	},
+	"resolutions": {
+		"string-width": "4.2.3"
+	},
+	"devDependencies": {
+		"@poppanator/sveltekit-svg": "^4.1.3",
+		"@sveltejs/adapter-static": "^2.0.3",
+		"@types/hammerjs": "^2.0.45",
+		"@types/siema": "^1.4.11",
+		"svelte-carousel": "^1.0.25",
+		"svelte-range-slider-pips": "^2.2.3",
+		"@fontsource/fira-mono": "^4.5.10",
+		"@neoconfetti/svelte": "^1.0.0",
+		"@sveltejs/adapter-auto": "^3.0.0",
+		"@sveltejs/kit": "^2.0.0",
+		"@sveltejs/vite-plugin-svelte": "^3.0.0",
+		"autoprefixer": "^10.4.17",
+		"postcss": "^8.4.33",
+		"svelte": "^4.2.7",
+		"svelte-check": "^3.6.0",
+		"tailwindcss": "^3.4.1",
+		"tslib": "^2.4.1",
+		"typescript": "^5.0.0",
+		"vite": "^5.0.3"
+	},
+	"type": "module",
+	"dependencies": {
+		"@slidy/core": "^3.7.6",
+		"@slidy/svelte": "^3.4.4",
+		"@sveltejs/adapter-vercel": "^5.2.0",
+		"flatpickr": "^4.6.13",
+		"fs": "^0.0.1-security",
+		"hammerjs": "^2.0.8",
+		"lodash": "^4.17.21",
+		"moment": "^2.29.4",
+		"path": "^0.12.7",
+		"siema": "^1.5.1",
+		"svelte-feather-icons": "^4.0.1",
+		"svelte-flatpickr": "^3.3.4",
+		"svelte-preprocess-import-assets": "^1.1.0",
+		"svelte-slidy": "^2.8.7",
+		"svgo": "^3.2.0"
+	}
+}

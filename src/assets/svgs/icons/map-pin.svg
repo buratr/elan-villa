@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 79 79">
+    <g clip-path="url(#a)">
+      <g filter="url(#b)">
+        <path fill="#fff" d="M64.65 30.09c0 21.98-25.15 43.97-25.15 43.97S14.35 52.07 14.35 30.1a25.15 25.15 0 1 1 50.3 0Z"/>
+      </g>
+      <g filter="url(#c)">
+        <path fill="url(#d)" d="M39.5 48C49.16 48 57 40.39 57 31s-7.84-17-17.5-17S22 21.61 22 31s7.84 17 17.5 17Z"/>
+      </g>
+    </g>
+    <defs>
+      <filter id="b" width="90.3" height="109.13" x="-5.65" y="-15.06" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse">
+        <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+        <feGaussianBlur in="BackgroundImageFix" stdDeviation="10"/>
+        <feComposite in2="SourceAlpha" operator="in" result="effect1_backgroundBlur_1825_10319"/>
+        <feColorMatrix in="SourceAlpha" result="hardAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
+        <feOffset dy="4"/>
+        <feGaussianBlur stdDeviation="2"/>
+        <feComposite in2="hardAlpha" operator="out"/>
+        <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+        <feBlend in2="effect1_backgroundBlur_1825_10319" result="effect2_dropShadow_1825_10319"/>
+        <feBlend in="SourceGraphic" in2="effect2_dropShadow_1825_10319" result="shape"/>
+      </filter>
+      <filter id="c" width="69" height="68" x="0" y="4" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse">
+        <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+        <feColorMatrix in="SourceAlpha" result="hardAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
+        <feMorphology in="SourceAlpha" radius="8" result="effect1_dropShadow_1825_10319"/>
+        <feOffset dx="-5" dy="7"/>
+        <feGaussianBlur stdDeviation="12.5"/>
+        <feComposite in2="hardAlpha" operator="out"/>
+        <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+        <feBlend in2="BackgroundImageFix" result="effect1_dropShadow_1825_10319"/>
+        <feBlend in="SourceGraphic" in2="effect1_dropShadow_1825_10319" result="shape"/>
+      </filter>
+      <linearGradient id="d" x1="57" x2="23.97" y1="37.42" y2="32.9" gradientUnits="userSpaceOnUse">
+        <stop offset=".37" stop-color="#50156B"/>
+        <stop offset="1" stop-color="#3E127F"/>
+      </linearGradient>
+      <clipPath id="a">
+        <path fill="#fff" d="M0 0h79v79H0z"/>
+      </clipPath>
+    </defs>
+  </svg>
