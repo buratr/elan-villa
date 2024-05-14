@@ -2,12 +2,16 @@
   import { debounce } from "lodash"; // Import debounce function from lodash
   import Input from "@components/atoms/Input.svelte";
   import LordIcon from "@components/atoms/LordIcon.svelte";
+  import Select from "@components/atoms/Select.svelte";
+
   // @ts-ignore
   import Carousel from "svelte-carousel";
   import IconArrowLeft from "@assets/svgs/icons/arrow-left.svg?component";
 
   export let locations: any[] = [];
-  export let onSelectArea: (title: string) => void;
+  //export let onSelectArea: (title: string) => void;
+  export let selectedArea: string | undefined;
+  export let selectedAreaArr: string[];
   let filteredLocations: any[] = locations;
   let carousel: any;
 
@@ -22,12 +26,12 @@
     height = clientHeight;
     change = true;
 
-    if (event.inputType === "deleteSoftLineBackward") {
+    if (event?.inputType === "deleteSoftLineBackward") {
       filteredLocations = locations;
     } else {
-      let searchTerm = event.target.value;
+      let searchTerm = event?.target?.value || event;
 
-      if (searchTerm.length > 0) {
+      if (searchTerm?.length > 0) {
         filteredLocations = locations.filter((item) =>
           item.title.toLowerCase().includes(searchTerm.toLowerCase())
         );
@@ -42,15 +46,42 @@
   }
 
   $: ({ class: classList, ...rest } = $$props);
+
+  const selectArea = (title: string) => {
+    selectedArea = title;
+    const index = selectedAreaArr.indexOf(title);
+    if (index !== -1) {
+        selectedAreaArr.splice(index, 1);
+        selectedAreaArr = [...selectedAreaArr];
+    } 
+    else {
+      selectedAreaArr = [...selectedAreaArr, title];
+    }
+    //console.log(filteredLocations)
+  
+    // isOpen = false;
+  };
+
+  function handleChange(event) {
+    debouncedFilter(event.detail);
+    console.log(event.detail)
+  }
+
 </script>
 
 <div class="bg-white rounded-[30px] px-12 py-11 flex flex-col gap-6 {classList}">
   <div class="flex flex-col w-full gap-6">
     <span class="font-bold text-center">Enter your destination</span>
-    <Input right full class="w-full" on:input={(e) => debouncedFilter(e)}>
-      <!-- svelte-ignore missing-declaration -->
+    <!-- <Input right full class="w-full" on:input={(e) => debouncedFilter(e)}>
       <LordIcon name="search" size="24" class="text-purple" />
-    </Input>
+    </Input> -->
+    <Select
+        on:change={handleChange}
+        class="w-full"
+        selectedValue="list of the areas"
+        disabled={false}
+        options={locations.map(item => (item.title))}
+      />
   </div>
   <div class="flex flex-col w-full gap-6">
     <span class="font-bold text-center">Search by neighborhood</span>
@@ -78,11 +109,16 @@
                   class="flex flex-col items-center gap-2 text-center px-6 md:px-0"
                 >
                   <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
+                   <!-- on:click={() => onSelectArea(item.title)} -->
                   <img
-                    class="rounded-[12px] w-[124px] cursor-pointer hover:border-black transition-all border mb-2"
+                    class="{item.select===true?'border-black opacity-30':''} rounded-[12px] w-[124px] cursor-pointer hover:border-black transition-all border mb-2"
                     src={item.imageSrc}
                     alt={item.title}
-                    on:click={() => onSelectArea(item.title)}
+                   
+                    on:click={() => {
+                      item.select = !item.select;
+                      selectArea(item.title); 
+                      }}
                   />
                   <span class="font-semibold text-xs">{item.title}</span>
                 </div>

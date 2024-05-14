@@ -28,7 +28,7 @@
   <div
     class="p-1 bg-gradient-to-r from-purple-dark to-purple-darker rounded-full"
     on:click={openFiltersMenu}
-  >
+    >
     <LordIcon
       name="settings"
       size="24"
@@ -36,16 +36,17 @@
     />
   </div>
   <!-- svelte-ignore a11y-click-events-have-key-events -->
-  <div class="flex flex-col w-full" on:click={openSearchMenu}>
+  <div class="flex flex-col w-full" on:click={openFiltersMenu}>
     <span class="uppercase tracking-widest text-xs md:text-base"
-      >WHERE TO ?</span
-    >
-    <span class="text-[8px] w-full">Anywhere - Any week - Add guests</span>
+      >FILTERS</span
+      >
+    <span class="text-[8px] w-full">3 areas, 8 nights, 4 guests, +3 others...</span>
   </div>
   <!-- svelte-ignore a11y-click-events-have-key-events -->
+  <!-- openSearchMenu -->
   <div
     class="p-1 bg-gradient-to-r from-purple-dark to-purple-darker rounded-full"
-    on:click={openSearchMenu}
+    on:click={openFiltersMenu}
   >
     <LordIcon name="search" size="24" class="text-white" />
   </div>

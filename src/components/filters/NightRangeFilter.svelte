@@ -4,7 +4,7 @@
   // @ts-ignore
   import RangeSlider from "svelte-range-slider-pips";
 
-  const max: number = 1000;
+  const max: number = 64286;
   const min: number = 0;
 
   let values = getFilterValueById('nightRange') || [min, max];

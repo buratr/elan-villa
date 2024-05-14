@@ -16,7 +16,10 @@
         <div class="flex gap-2 items-baseline text-white md:text-black">
           <span class="font-athena text-4xl">{item.title}</span>
           |
-          <span class="text-xl">{item.side}</span>
+          <!-- <span class="text-xl">{item.side}</span> -->
+          <span class="text-xl">{item.villas.length}</span>
+          <span class="text-xl">villas</span>
+          
         </div>
         <Button style="outlined" class="!py-[4px] hidden md:inherit">
           Open Map
@@ -46,17 +49,17 @@
   </div>
 
   {#if index === 0}
-    <div class="flex justify-center items-center py-10">
+    <!-- <div class="flex justify-center items-center py-10">
       <MemberBadge class="md:hidden w-[368px]" />
-    </div>
+    </div> -->
   {/if}
 {/each}
 
 {#if showAll}
   <div
     transition:slide
-    class="md:flex w-full justify-center flex-col items-center gap-4 pt-4"
-  >
+    class="md:flex w-full justify-center flex-col items-center gap-4 "
+    >
     {#each data.slice(3, data.length) as item, index}
       <div class="pb-12 border-b">
         <div class="w-full lg:pr-24 lg:px-0 px-5 pt-12 md:bg-interit bg-mobile">
@@ -100,10 +103,16 @@
   class="flex justify-center items-center pt-20 md:pt-10 {showAll
     ? 'hidden'
     : 'flex'}"
->
-  <Button on:click={() => (showAll = true)} style="outlined"
-    >all extra services</Button
   >
+  <div class="flex flex-col items-center">
+    <Button on:click={() => (showAll = true)} style="outlined">Show More Results</Button>
+    <span class="font-athena text-[18px] mt-4">58 unrevealed villas</span>
+  </div>
+  
+</div>
+
+<div class="flex justify-center items-center py-10">
+  <MemberBadge class="md:hidden w-[368px]" />
 </div>
 
 <style lang="postcss">

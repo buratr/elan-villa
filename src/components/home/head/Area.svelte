@@ -6,7 +6,8 @@
   import IconArrowLeft from "@assets/svgs/icons/arrow-left.svg?component";
   import { onMount } from "svelte";
   import LordIcon from "@components/atoms/LordIcon.svelte";
-
+  import Select from "@components/atoms/Select.svelte";
+  
   export let locations: any[] = [];
   export let isOpen: boolean;
   export let parentHeight = 0;
@@ -27,12 +28,12 @@
     height = clientHeight;
     change = true;
 
-    if (event.inputType === "deleteSoftLineBackward") {
+    if (event?.inputType === "deleteSoftLineBackward") {
       filteredLocations = locations;
     } else {
-      let searchTerm = event.target.value;
+      let searchTerm = event?.target?.value || event;
 
-      if (searchTerm.length > 0) {
+      if (searchTerm?.length > 0) {
         filteredLocations = locations.filter((item) =>
           item.title.toLowerCase().includes(searchTerm.toLowerCase())
         );
@@ -79,7 +80,11 @@
   });
 
   $: ({ class: classList, ...rest } = $$props);
-
+  
+  function handleChange(event) {
+    debouncedFilter(event.detail);
+    console.log(event.detail)
+  }
 </script>
 
 <div
@@ -92,9 +97,17 @@
   >
     <div class="flex flex-col w-full gap-6">
       <span class="font-bold">Enter your destination</span>
-      <Input right class="min-w-[350px]" on:input={(e) => debouncedFilter(e)}>
+      <!-- <Input right class="min-w-[350px]" on:input={(e) => debouncedFilter(e)}>
         <LordIcon name="search" size="24" class="text-purple" />
-      </Input>
+      </Input> -->
+      <Select
+        on:change={handleChange}
+        class="w-full"
+        selectedValue="list of the areas"
+        disabled={false}
+        options={locations.map(item => (item.title))}
+      />
+      
     </div>
     <div class="flex flex-col w-full gap-6">
       <span class="font-bold">Search by neighborhood</span>

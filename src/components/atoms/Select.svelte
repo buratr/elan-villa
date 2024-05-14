@@ -1,21 +1,33 @@
 <script lang="ts">
   import IconArrowLeft from "@assets/svgs/icons/arrow-left.svg?component";
+  import { createEventDispatcher } from 'svelte';
+
+  const dispatch = createEventDispatcher();
 
   export let options: string[] = [];
   export let index: number = 0;
   export let selectedValue: string = "Select";
+  export let disabled: boolean | undefined = true;
   let value: string;
 
-  $: ({ class: classList, ...rest } = $$props);
-</script>
 
+  $: ({ class: classList, ...rest } = $$props);
+
+  function handleChange(event) {
+    const selectedOption = event.target.value; // Получаем значение выбранной опции
+    dispatch('change', options[selectedOption]); // Отправляем выбранное значение через событие 'change'
+  }
+
+</script>
+<!-- on:change={() => (value = options[index])} -->
 <div class="relative">
   <select
-    on:change={() => (value = options[index])}
+    
+    on:change={handleChange}
     class="select outline-none shadow-main rounded-[50px] pl-5 pr-8 py-2 text-ellipsis {classList}"
     {...rest}
   >
-    <option disabled selected>{selectedValue}</option>
+    <option disabled={disabled} selected>{selectedValue}</option>
     {#each options as option, i}
       <option value={i}>{option}</option>
     {/each}

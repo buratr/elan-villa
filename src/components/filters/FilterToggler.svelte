@@ -7,7 +7,9 @@
   export let open: boolean = true;
   export let selectedValue: number | undefined = undefined;
   export let filters: string[] = [];
-
+  if(window.matchMedia('(max-width: 1440px)').matches){
+    open = false
+  }
   const clearFilter = () => {
     filters.forEach(function (filter) {
       setFilterValueById(filter, undefined);
@@ -32,11 +34,11 @@
         class="group absolute transition-all rounded-full w-[27px] h-[27px] bg-purple-light text-white font-semibold flex justify-center items-center -top-2 -right-9"
         transition:fade={{ duration: 150 }}
         on:click={() => clearFilter()}
-      >
+        >
         {selectedValue}
         <div
           class="absolute group-hover:opacity-100 opacity-0 rounded-full w-[27px] h-[27px] bg-purple-secondary transition-all flex justify-center items-center"
-        >
+          >
           <CloseIcon
             width="16"
             height="16"

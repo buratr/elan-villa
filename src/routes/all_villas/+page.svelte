@@ -19,14 +19,14 @@
 
 <AllVillasLayout>
   <div slot="search" class="flex w-full justify-center md:justify-end">
-    <div class="hidden md:flex w-full justify-end">
+    <div class="hidden lg:flex w-full justify-end">
       <Search />
     </div>
-    <div class="md:hidden w-full py-11">
+    <div class="lg:hidden w-full py-11">
       <SearchMobile />
     </div>
   </div>
-  <div slot="filters" class="pl-20 pr-8 h-full flex flex-col justify-between">
+  <div slot="filters" class="pl-20 pr-8 h-full flex flex-col justify-between ">
     <div>
       <AllFilters />
 
@@ -41,7 +41,7 @@
     </div>
     <MemberBadge class="top-20 z-20 hidden md:flex w-[368px]" />
   </div>
-  <div slot="villas">
+  <div slot="villas" class="overflow-hidden">
     <Villas />
   </div>
 </AllVillasLayout>

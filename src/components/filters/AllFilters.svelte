@@ -128,7 +128,7 @@
   </FilterToggler>
 
   <FilterToggler
-    selectedValue={guestsSum > 0 ? 1 : undefined}
+    selectedValue={guestsSum > 0 ? guestsSum : undefined}
     title="guests"
     filters={["guests"]}
   >
@@ -186,17 +186,17 @@
 
   {#if showCTA}
     <div class="flex flex-col gap-8 items-center">
-      <Button style="outlined" class="!py-[4px]">
+      <!-- <Button style="outlined" class="!py-[4px]">
         villa specialist
         <LordIcon
           name="question-mark"
           size="32"
           class="text-purple-secondary group-hover:text-white"
         />
-      </Button>
+      </Button> -->
 
       <div class="px-8">
-        <Button style="primary">Save search</Button>
+        <Button style="primary">Search</Button>
       </div>
     </div>
   {/if}

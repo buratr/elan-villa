@@ -89,6 +89,19 @@
         : (collections[index]["active"] = false);
     });
   };
+  
+  let selectedAreaArr: string[] = [];
+  let areaString:string =""
+  $: {
+    areaString=""
+    selectedAreaArr.forEach((item, id)=>{
+      if(selectedAreaArr.length != id+1){
+        areaString += item +", "
+      }else{
+        areaString += item
+      }
+    })
+  }
 </script>
 
 <StepLayout>
@@ -131,7 +144,7 @@
         <span class="text-purple-light text-[20px] font-medium">
           Area :
         </span>
-        <Area {locations} class="bg-white/80 max-w-[695px] w-full" bind:selectedArea staticArea isOpen parentHeight={clientHeight} />
+        <Area {locations} class="bg-white/80 max-w-[695px] w-full" bind:selectedAreaArr bind:selectedArea staticArea isOpen parentHeight={clientHeight} />
       </div>
   </div>
 </StepLayout>

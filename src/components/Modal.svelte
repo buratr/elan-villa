@@ -2,6 +2,7 @@
   import type { ComponentProps, ComponentType, SvelteComponent } from "svelte";
   import { writable } from "svelte/store";
   import { navigating } from "$app/stores";
+  import CloseModalIcon from "@assets/svgs/icons/cross-modal-close.svg?component";
 
   let openModals = writable<
     Array<{
@@ -150,14 +151,32 @@
         if ($modalConfig?.backdropClose) closeModal();
       }}
       style="z-index:{`${90 * (index + 1)}`}"
-    >
+      >
       <!-- svelte-ignore a11y-no-static-element-interactions -->
+
+      <div class="absolute flex w-full items-center bg-black top-0 p-6 bottom-auto z-40">
+        <div
+          on:click={() => {
+            if ($modalConfig?.backdropClose) closeModal();
+          }}
+          >
+          <CloseModalIcon
+          width="48"
+          height="48" 
+          class="cursor-pointer"
+          />
+        </div>
+
+        <div class="ml-6 text-base font-medium text-white">
+          Close the filters
+        </div>
+      </div>
       <div
         bind:this={modalWrapperElements[index]}
-        class="modal-box relative {$modalConfig?.overflow ? '!overflow-visible' : ''} {$modalConfig?.size}"
+        class="mt-7  modal-box relative {$modalConfig?.overflow ? '!overflow-visible' : ''} {$modalConfig?.size}"
         style:width={$modalWidths[index]}
         style="z-index:{`${30 * (index + 1)}`}"
-      >
+        >
         <svelte:component this={$modalComponent} {...$modalProps} />
       </div>
     </div>

@@ -26,7 +26,9 @@
     "November",
     "December",
   ];
-
+  
+  const currentYear = new Date().getFullYear()
+  
   const selectedPeriod = writable({
     startMonth: selectedMonth ? months.indexOf(selectedMonth.month) : 0,
     year: selectedMonth ? selectedMonth.year : new Date().getFullYear(),
@@ -46,7 +48,12 @@
       if (nextStartMonth < months.length) {
         return { ...value, startMonth: nextStartMonth };
       } else {
-        return { startMonth: 0, year: value.year + 1 };
+        if(value.year === currentYear+2){
+          return { ...value, startMonth:  8 };
+        }else{
+          return { startMonth: 0, year: value.year + 1 };
+        }
+        
       }
     });
   }

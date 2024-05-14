@@ -4,7 +4,7 @@
   // @ts-ignore
   import RangeSlider from "svelte-range-slider-pips";
 
-  const max: number = 60000;
+  const max: number = 450000;
   const min: number = 0;
 
   let values = getFilterValueById('weekRange') || [min, max];
@@ -14,7 +14,7 @@
   }
 </script>
 
-<RangeSlider suffix=" $" on:stop={(e) => { setFilterValueById('weekRange', e.detail.values); setFilterValueById('nightRange', undefined) }} float range {values} max={60000} />
+<RangeSlider suffix=" $" on:stop={(e) => { setFilterValueById('weekRange', e.detail.values); setFilterValueById('nightRange', undefined) }} float range {values} max={450000} />
 
 <style lang="postcss">
   :root {

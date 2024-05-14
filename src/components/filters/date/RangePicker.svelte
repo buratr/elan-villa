@@ -14,7 +14,12 @@
   export let className: string = '';
   export let selectedDates: Date[] = [];
 
+  const currentDate = new Date()
+  const maxDate = new Date(currentDate.getFullYear() + 2, currentDate.getMonth(), currentDate.getDate());
+
   const flatpickrOptions: Options = {
+    minDate: currentDate,
+    maxDate: maxDate,
     enableTime: false,
     mode: "range",
     dateFormat: "Y-m-d",

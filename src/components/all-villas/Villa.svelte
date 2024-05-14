@@ -29,30 +29,51 @@
 </script>
 
 <!-- svelte-ignore a11y-no-static-element-interactions -->
-<div class="relative cursor-pointer">
-  <div
-    class="pt-4 md:hidden flex {light ? 'text-black' : 'text-purple-light'} "
-  >
-    <!-- svelte-ignore a11y-click-events-have-key-events -->
-    <div on:click={() => goto("/villa/blanc-bleu")}>
-      <span class="text-base">Villa</span>
-      <span class="text-base font-semibold tracking-wide">{villa.title}</span>
+<div class="relative cursor-pointer mb-2">
+
+  <div class="flex md:hidden justify-between {light? 'text-black':'text-white'} py-1">
+    <div class="ml-auto">
+      <button on:click={() => (liked = !liked)}>
+        <LordIcon
+          name="like"
+          size="32"
+          class="{light ? 'text-purple-light' : 'text-white'} 
+          {liked ? '!text-purple' : ''}"
+        />
+      </button>
+      <button on:click={() => (flash = !flash)}>
+        <LordIcon
+          name="book-now"
+          size="32"
+          class="{light ? 'text-purple-light' : 'text-white'} 
+          {flash ? '!text-purple' : ''}"
+        />
+      </button>
+      <button>
+        <LordIcon
+          name="share"
+          size="32"
+          class={light ? "text-purple-light" : "text-white"}
+        />
+      </button>
     </div>
+    
   </div>
-  <div class="py-2 md:hidden {light ? 'text-black' : 'text-white'}">
-    <span>{villa.location}</span>
-  </div>
-  <div class="relative">
+<!-- on:click={() => goto("/villa/blanc-bleu")} -->
+  <div class="relative" >
     <Carousel
       perPage={1}
       dotsClassList="absolute bottom-16 left-1/2 -translate-x-1/2"
+     
     >
       {#each villa.imageSrc as src}
+      <button on:click={() => goto("/villa/blanc-bleu")} class="w-full object-cover shadow-image md:h-[498px] h-[293px]">
         <img
           {src}
           alt={villa.title}
           class="w-full object-cover shadow-image md:h-[498px] h-[293px]"
         />
+      </button>
       {/each}
     </Carousel>
     <!-- svelte-ignore missing-declaration -->
@@ -119,11 +140,39 @@
       </IconCircle>
     </div>
   </div>
+
+  <div class="pt-4 md:hidden flex justify-between {light? 'text-black':'text-white'}">
+    <div>
+      <div class="md:hidden flex {light ? 'text-black' : 'text-purple-light'} ">
+        <!-- svelte-ignore a11y-click-events-have-key-events -->
+        <div on:click={() => goto("/villa/blanc-bleu")}>
+          <span class="text-base">Villa</span>
+          <span class="text-base font-semibold tracking-wide">{villa.title}</span>
+        </div>
+      </div>
+      <div class="py-1 md:hidden {light ? 'text-black' : 'text-white'}">
+        <span>{villa.location}</span>
+      </div>
+    </div>
+
+    <div>
+      <span class="text-xs pr-2">TOTAL</span>
+      <span
+        class="text-base font-bold border-b{light
+          ? 'border-black'
+          :  'border-white'}  tracking-wide">{villa.price}</span
+      >
+    </div>
+  </div>
+  
+  
+
+ 
+
   <!-- svelte-ignore a11y-click-events-have-key-events -->
-  <div
-    class="pt-4 justify-between hidden md:flex"
-    on:click={() => goto("/villa/blanc-bleu")}
-  >
+  
+  <div class="pt-4 justify-between hidden md:flex"
+    on:click={() => goto("/villa/blanc-bleu")} >
     <div>
       <span class="text-2xl">Villa</span>
       <span class="text-xl font-semibold tracking-wide">{villa.title}</span>
@@ -135,45 +184,9 @@
       >
     </div>
   </div>
-  <div
-    class="flex md:hidden justify-between {light
-      ? 'text-black'
-      : 'text-white'} py-2"
-  >
-    <div>
-      <button on:click={() => (liked = !liked)}>
-        <LordIcon
-          name="like"
-          size="32"
-          class="{light ? 'text-purple-light' : 'text-white'} 
-          {liked ? '!text-purple' : ''}"
-        />
-      </button>
-      <button on:click={() => (flash = !flash)}>
-        <LordIcon
-          name="book-now"
-          size="32"
-          class="{light ? 'text-purple-light' : 'text-white'} 
-          {flash ? '!text-purple' : ''}"
-        />
-      </button>
-      <button>
-        <LordIcon
-          name="share"
-          size="32"
-          class={light ? "text-purple-light" : "text-white"}
-        />
-      </button>
-    </div>
-    <div>
-      <span class="text-xs pr-2">TOTAL</span>
-      <span
-        class="text-base font-bold border-b {light
-          ? 'border-black'
-          : 'border-white'}  tracking-wide">{villa.price}</span
-      >
-    </div>
-  </div>
+  
+  
+  
   <div class="pt-2 hidden md:block">
     <span>{villa.location}</span>
   </div>

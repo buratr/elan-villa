@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { onMount, createEventDispatcher } from 'svelte';
+  import { writable } from 'svelte/store';
   import Circle from "@components/atoms/Circle.svelte";
   import StepLayout from "../StepLayout.svelte";
   import specialOffers from "@assets/images/casa-tua.png";
@@ -17,7 +19,12 @@
   import userIcon from "@assets/icons-json/306-avatar-icon-calm.rough.json?url";
   import carIcon from "@assets/icons-json/845-car-site-2.rough.json?url";
   import bagIcon from "@assets/icons-json/725-suitcase-travel-baggage-luggage.rough.json?url";
+  import { PlusCircleIcon } from "svelte-feather-icons";
+  import SeatsRange from '../SeatsRange.svelte';
 
+let valueSeasonsInput:string
+
+const dispatch = createEventDispatcher();
 
   const collections = [
     {
@@ -71,11 +78,11 @@
     },
   ];
 
-  let car1 = ["Normal", "4x4"];
+  let car1 = ["Normal", "Both", "4x4"];
   let activeCar1 = "Normal";
-  let car2 = ["Normal", "Convertible"];
+  let car2 = ["Normal", "Both","Convertible"];
   let activeCar2 = "Normal";
-  let car3 = ["Electric", "Gas"];
+  let car3 = ["Electric", "Both","Gas"];
   let activeCar3 = "Electric";
 
   let bookFlight = true;
@@ -89,7 +96,7 @@
     });
   };
 
-  let activeSeasons = [
+  let activeSeasons = writable([
     {
       id: 1,
       title: "Extra Suitcase",
@@ -115,7 +122,34 @@
       title: "Private charter to St Barth",
       active: false,
     },
-  ];
+  ]);
+  // let activeSeasons = [
+  //   {
+  //     id: 1,
+  //     title: "Extra Suitcase",
+  //     active: false,
+  //   },
+  //   {
+  //     id: 2,
+  //     title: "Business Class",
+  //     active: false,
+  //   },
+  //   {
+  //     id: 3,
+  //     title: "VIP Service",
+  //     active: false,
+  //   },
+  //   {
+  //     id: 4,
+  //     title: "Chair-wheel",
+  //     active: false,
+  //   },
+  //   {
+  //     id: 5,
+  //     title: "Private charter to St Barth",
+  //     active: false,
+  //   },
+  // ];
 
   let cars = [
     {
@@ -193,11 +227,20 @@
   ];
 
   const selectSeason = (id: number) => {
-    activeSeasons.forEach((season, index) => {
-      season.id === id
-        ? (activeSeasons[index]["active"] = true)
-        : (activeSeasons[index]["active"] = false);
+    activeSeasons.update(seasons => {
+      const index = seasons.findIndex(season => season.id === id);
+      if (index !== -1) {
+        seasons[index]["active"] = !seasons[index]["active"]; // Обновляем данные элемента
+      }
+      return seasons;
     });
+
+    //activeSeasons[id-1]["active"] = !activeSeasons[id-1]["active"]
+    // activeSeasons.forEach((season, index) => {
+    //   season.id === id
+    //     ? (activeSeasons[index]["active"] = true)
+    //     : (activeSeasons[index]["active"] = false);
+    // });
   };
 
   const selectCar = (id: number) => {
@@ -209,11 +252,23 @@
   };
 
   const resetSeason = () => {
-    activeSeasons.forEach((season, index) => {
-      activeSeasons[index]["active"] = false;
-    });
+    // activeSeasons.forEach((season, index) => {
+    //   activeSeasons[index]["active"] = false;
+    // });
   };
 
+  const addSeason = ()=>{
+    if(valueSeasonsInput){
+      activeSeasons.update(seasons => [...seasons, {
+        id:$activeSeasons.length+1,
+        title:valueSeasonsInput,
+        active:true,
+      }]);
+      dispatch('activeSeasonsChanged', activeSeasons);
+      valueSeasonsInput=""
+    }
+    
+  }
   const handleCar1 = (car: string) => () => {
     activeCar1 = car;
   };
@@ -301,7 +356,7 @@
         <div class="flex w-full gap-8 pt-10">
           <span class="text-white w-1/2">Special needs</span>
           <div class="flex gap-4 flex-col flex-1 w-full px-8 max-w-[320px]">
-            {#each activeSeasons as season}
+            {#each $activeSeasons as season}
               <div class="flex w-full justify-between">
                 <div class="flex flex-col text-white">
                   <p>{season.title}</p>
@@ -311,14 +366,23 @@
                 </button>
               </div>
             {/each}
-            <Input
-              right
+            <div class="relative flex justify-end items-center">
+              <Input
+                right
+                bind:value={valueSeasonsInput}
+                on:click={() => {
+                  resetSeason();
+                }}
+                placeholder="Other"
+                class="!px-6 bg-white/80 shadow-main min-w-[262px] w-full"
+              ></Input>
+              <button
               on:click={() => {
-                resetSeason();
+                addSeason();
               }}
-              placeholder="Other"
-              class="!px-6 bg-white/80 shadow-main min-w-[262px] w-full"
-            ></Input>
+              class="absolute right-2 {valueSeasonsInput?"block":"hidden"}"> <PlusCircleIcon size="32" class="text-[#3E127F]" /></button>
+            </div>
+            
           </div>
         </div>
       </div>
@@ -361,13 +425,18 @@
         <div class="flex flex-wrap w-full gap-8 pt-10">
           <span class="text-white w-1/2">Pick a vehicle</span>
           <div class="flex gap-4 flex-1 w-full flex-col">
-            <div class="flex gap-4 w-full flex-1 justify-end items-center">
+            <div class="flex gap-4 flex-col w-full flex-1 justify-end items-end">
               <span class="text-white font-medium">Seats number</span>
-              <Counter class="!w-28 xl:w-32" gradient />
+              <!-- <Counter class="!w-28 xl:w-32" gradient /> -->
+              <div class="!w-64 xl:w-32 mt-4">
+                <SeatsRange />
+              </div>
+              
+
             </div>
             <div class="flex gap-4 flex-1 w-full flex-col items-end">
               <div
-                class="flex items-center justify-around rounded-[30px] w-full max-w-[260px] shadow-select p-2 bg-white/80"
+                class="flex items-center justify-around rounded-[30px] w-full max-w-[300px] shadow-select p-2 bg-white/80"
               >
                 {#each car1 as car}
                   <!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -383,7 +452,7 @@
                 {/each}
               </div>
               <div
-                class="flex items-center justify-around rounded-[30px] w-full max-w-[260px] shadow-select p-2 bg-white/80"
+                class="flex items-center justify-around rounded-[30px] w-full max-w-[360px] shadow-select p-2 bg-white/80"
               >
                 {#each car2 as car}
                   <!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -399,7 +468,7 @@
                 {/each}
               </div>
               <div
-                class="flex items-center justify-around rounded-[30px] w-full max-w-[260px] shadow-select p-2 bg-white/80"
+                class="flex items-center justify-around rounded-[30px] w-full max-w-[300px] shadow-select p-2 bg-white/80"
               >
                 {#each car3 as car}
                   <!-- svelte-ignore a11y-click-events-have-key-events -->

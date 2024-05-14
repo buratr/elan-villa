@@ -10,10 +10,19 @@
   import beach from "@assets/images/chambre-2.png";
   import Progress from '@components/travel-lab/Progerss.svelte';
 
+  export let progressVal;
+
   const collections = [
     {
+      id: 1,
+      title: "Special offers",
+      desc: "Perfect accommodations to share memories",
+      img: specialOffers,
+      active: false
+    },
+    {
       id: 2,
-      title: "Ultra luxe",
+      title: "Luxury",
       desc: "The excellence of the villas on the island are here",
       img: ultraLuxe,
       active: false,
@@ -56,11 +65,12 @@
   ];
 
   const selectCollection = (id: number) => {
-    collections.forEach((collection, index) => {
-      collection.id === id
-        ? (collections[index]["active"] = true)
-        : (collections[index]["active"] = false);
-    });
+    collections[id-1]['active'] = !collections[id-1]['active']
+    // collections.forEach((collection, index) => {
+    //   collection.id === id
+    //     ? (collections[index]["active"] = true)
+    //     : (collections[index]["active"] = false);
+    // });
   };
 </script>
 
@@ -118,4 +128,4 @@
 <div class="h-[70px] relative flex justify-center items-end mt-8">
   <div class="absolute w-full h-full dashed-vertical -z-10 top-0"></div>
 </div>
-<Progress />
+<Progress val={progressVal}/>

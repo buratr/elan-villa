@@ -24,7 +24,7 @@
     <Select
       class="max-w-[200px]"
       selectedValue="Sort by area"
-      options={["Area 1", "Area 2", "Area 3"]}
+      options={["Area - From most choices", "Area - From least choices", "Price - From higher", "Price - From lower", "Name - From A to Z", "Name - From Z to A"]}
     />
   </div>
 </div>

@@ -19,7 +19,7 @@
     },
     {
       id: 2,
-      title: "Ultra luxe",
+      title: "Luxury",
       desc: "The excellence of the villas on the island are here",
       img: ultraLuxe,
       active: false
@@ -59,11 +59,26 @@
       img: beach,
       active: false
     },
+    {
+      id: 8,
+      title: "On the cliff",
+      desc: "Only few steps from the beach",
+      img: beach,
+      active: false
+    },
+    {
+      id: 9,
+      title: "On the hills",
+      desc: "Only few steps from the beach",
+      img: beach,
+      active: false
+    },
   ];
 
   const selectCollection = (id: number) => {
+    collections[id-1]['active'] = !collections[id-1]['active']
     collections.forEach((collection, index) => {
-      collection.id === id ? collections[index]['active'] = true : collections[index]['active'] = false;
+      //collection.id === id ? collections[index]['active'] = true : collections[index]['active'] = false;
     });
   }
 

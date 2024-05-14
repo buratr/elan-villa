@@ -29,7 +29,44 @@
   import { slide } from "svelte/transition";
 
   let active: number | undefined = undefined;
-  const experience = [
+  const experienceGroup = [
+    {
+      name:"Casual Trip",
+      options:["Meet & Greet", 
+      "Escort to/from the villa", 
+      "Welcome gifts", 
+      "Daily maid service", 
+      "Villa specialist"]
+    },
+    {
+      name:"Travel Peacefully",
+      options:["Meet & Greet", 
+      "Escort to/from the villa", 
+      "Welcome gifts", 
+      "Daily maid service", 
+      "Villa specialist", 
+      "Continental breakfast", 
+      "Car rental quote", 
+      "Airplane tickets quote"]
+    },
+    {
+      name:"Premium Holiday",
+      options:["Meet & Greet", 
+      "Escort to/from the villa", 
+      "Welcome gifts", 
+      "Daily maid service", 
+      "Villa specialist", 
+      "Continental breakfast", 
+      "Car rental quote", 
+      "Airplane tickets quote", 
+      "Concierge service 24/7", 
+      "Restaurants reservations", 
+      "Activities reservations"]
+    },
+  ]
+
+
+  let experience = [
     {
       id: 1,
       icon: IconPlane,
@@ -68,35 +105,48 @@
     },
     {
       id: 7,
-      icon: IconService,
-      decs: "Concierge service 24/7",
-      active: false,
-    },
-    {
-      id: 8,
-      icon: IconPlate,
-      decs: "Restaurants reservations",
-      active: false,
-    },
-    {
-      id: 9,
-      icon: IconYacht,
-      decs: "Activities reservations",
-      active: false,
-    },
-    {
-      id: 10,
       icon: IconCarrent,
       decs: "Car rental quote",
       active: false,
     },
     {
-      id: 11,
+      id: 8,
       icon: IconAirplane,
       decs: "Airplane tickets quote",
       active: false,
     },
+    {
+      id: 9,
+      icon: IconService,
+      decs: "Concierge service 24/7",
+      active: false,
+    },
+    {
+      id: 10,
+      icon: IconPlate,
+      decs: "Restaurants reservations",
+      active: false,
+    },
+    {
+      id: 11,
+      icon: IconYacht,
+      decs: "Activities reservations",
+      active: false,
+    },
+    
   ];
+
+  const findActiveGroup = () => {
+    const activeOptionsSet = new Set(experience.filter(item => item.active).map(item => item.decs));
+    let matchingGroupId = -1;
+    experienceGroup.forEach((group, index) => {
+        const groupOptions = new Set(group.options);
+        if ([...groupOptions].every(option => activeOptionsSet.has(option))) {
+            matchingGroupId = index;
+        }
+    });
+    return matchingGroupId+1;
+  }
 
   const addExperience = (id: number) => {
     experience.forEach((exp, i) => {
@@ -104,6 +154,7 @@
         experience[i]["active"] = !experience[i]["active"];
       }
     });
+    active=findActiveGroup()
   };
 
   const services = [
@@ -198,6 +249,23 @@
       }
     });
   };
+
+  const trevelPlancChange = (plan:number)=>{
+    experience.map(item => {item.active = false;return item; });
+
+    experienceGroup[plan-1].options.forEach((option)=>{
+      experience.map(item => {
+        if (item.decs === option) {
+          item.active = true;
+        }
+        return item;
+      });
+      //console.log(findOption)
+    })
+    experience = [...experience]
+    console.log(experience)
+  }
+
 </script>
 
 <StepLayout>
@@ -249,7 +317,7 @@
           >-50 % off services fees</span
         >
         <Button
-          on:click={() => (active = 1)}
+          on:click={() => {trevelPlancChange(1); active = 1}}
           style={active === 1 ? "primary" : "outlined"}>Select</Button
         >
       </div>
@@ -273,7 +341,7 @@
           >-25 % off services fees</span
         >
         <Button
-          on:click={() => (active = 2)}
+          on:click={() => {trevelPlancChange(2); active = 2}}
           style={active === 2 ? "primary" : "outlined"}>Select</Button
         >
       </div>
@@ -292,7 +360,7 @@
           >Premium holiday</span
         >
         <Button
-          on:click={() => (active = 3)}
+          on:click={() => {trevelPlancChange(3); active = 3}}
           style={active === 3 ? "primary" : "outlined"}>Select</Button
         >
       </div>
@@ -364,7 +432,7 @@
   </div>
 
   <div slot="right" class="pb-20">
-    <div class="flex flex-wrap w-full gap-8 pt-10">
+    <!-- <div class="flex flex-wrap w-full gap-8 pt-10">
       <span class="text-white w-1/2">You want us to book your flight ?</span>
       <div class="flex gap-4">
         <button
@@ -382,10 +450,10 @@
           <Circle light selected={!bookFlight}></Circle>
         </button>
       </div>
-    </div>
+    </div> -->
     <div
       class="md:flex w-full justify-center flex-col items-center gap-4 pt-20"
-    >
+      >
       <!-- svelte-ignore a11y-no-static-element-interactions -->
       {#each services.slice(0, 5) as service, index}
         <!-- svelte-ignore a11y-click-events-have-key-events -->

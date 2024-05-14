@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
   import Circle from "@components/atoms/Circle.svelte";
   import StepLayout from "./StepLayout.svelte";
   import LordIcon from "@components/atoms/LordIcon.svelte";
@@ -208,22 +209,79 @@
       }
     });
   };
+
+//////////////////////////
+let counter = 0, counterMob = 0;
+
+onMount(() => {
+  const startElement = document.querySelector('div[data-marker="start"]');
+  const allSetElement = document.querySelector('div[data-marker="all-set"]');
+
+  const startElementMob = document.querySelector('div[data-marker="start-mob"]');
+  const allSetElementMob = document.querySelector('div[data-marker="all-set-mob"]');
+
+  function updateCounter() {
+    const windowHeight = window.innerHeight;
+    const startRect = startElement.getBoundingClientRect();
+    const allSetRect = allSetElement.getBoundingClientRect();
+
+    const startRectMob = startElementMob.getBoundingClientRect();
+    const allSetRectMob = allSetElementMob.getBoundingClientRect();
+    
+    const startOffsetTop = startRect.top;
+    const allSetOffsetTop = allSetRect.top;
+    const startOffsetBottom = startRect.bottom;
+    const allSetOffsetBottom = allSetRect.bottom;
+
+    const startOffsetTopMob = startRectMob.top;
+    const allSetOffsetTopMob = allSetRectMob.top;
+    const startOffsetBottomMob = startRectMob.bottom;
+    const allSetOffsetBottomMob = allSetRectMob.bottom;
+
+    if (startOffsetTop <= windowHeight / 2) {
+      const scrollProgress = Math.max(0, Math.min(1, (windowHeight / 2 - startOffsetTop) / (allSetOffsetBottom - startOffsetTop))) * 100;
+      counter = Math.ceil(scrollProgress);
+    }else{
+      counter = 0
+    }
+    if (startOffsetTopMob <= windowHeight / 2) {
+      const scrollProgressMob = Math.max(0, Math.min(1, (windowHeight / 2 - startOffsetTopMob) / (allSetOffsetBottomMob - startOffsetTopMob))) * 100;
+      counterMob = Math.ceil(scrollProgressMob);
+    }else{
+      counterMob =0
+    }
+
+  }
+
+  window.addEventListener('scroll', updateCounter);
+  updateCounter(); // Вызываем после инициализации
+
+  return () => {
+    window.removeEventListener('scroll', updateCounter);
+  };
+});
+
+console.log(counter)
 </script>
 
+
+
 <div class="px-[3%] hidden lg:flex w-full flex-col justify-center">
-  <Progress />
+  <div data-marker="start">
+    <Progress val={counter}/>
+  </div>
   <Step1 />
-  <Progress />
+  <Progress val={counter}/>
   <Step2 />
-  <Progress />
+  <Progress val={counter}/>
   <Step3 />
-  <Progress />
+  <Progress val={counter}/>
   <Step4 />
 
   <div class="flex flex-col w-full text-center pb-10 md:pb-24 px-8 md:px-0 pt-20">
-    <div
+    <div data-marker="all-set"
       class="flex justify-center items-center w-full md:px-[8%] lg:px-[15%] gap-4 pb-10"
-    >
+      >
       <div class="w-full flex-1 h-1 dashed-spaced hidden md:block"></div>
       <span class="text-white text-[25px] md:text-[35px] font-bold">
         <span class="flex md:inline justify-center w-full">ALL SET ?</span>
@@ -243,14 +301,16 @@
 </div>
 
 <div class="lg:hidden flex w-full flex-col justify-center pt-20">
-  <Progress />
-  <Step1Mobile />
-  <Step2Mobile />
-  <Step3Mobile />
-  <Step4Mobile />
+  <div data-marker="start-mob">
+    <Progress val={counterMob}/>
+  </div>
+  <Step1Mobile progressVal={counterMob}/>
+  <Step2Mobile progressVal={counterMob}/>
+  <Step3Mobile progressVal={counterMob}/>
+  <Step4Mobile progressVal={counterMob}/>
 
   <div class="flex flex-col w-full text-center pb-10 md:pb-24 px-8 md:px-0 pt-20">
-    <div
+    <div data-marker="all-set-mob"
       class="flex justify-center items-center w-full md:px-[8%] lg:px-[15%] gap-4 pb-10"
     >
       <div class="w-full flex-1 h-1 dashed-spaced hidden md:block"></div>

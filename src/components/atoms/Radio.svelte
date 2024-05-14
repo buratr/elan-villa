@@ -35,7 +35,7 @@
 >
   {#each options as option}
     <input
-      class="sr-only"
+      class="sr-only "
       type="radio"
       id={slugify(option.label)}
       name="radioGroup"
@@ -50,7 +50,7 @@
       class="{userSelected?.value === option.value
         ? outlined ? 'border bg-gradient-to-r from-purple-dark to-purple-darker text-white' : 'bg-gradient-to-r from-purple-dark to-purple-darker text-white'
         : outlined
-          ? 'border border-black'
+          ? 'border border-black bg-white/80'
           : 'bg-white/50 font-medium'} w-fit cursor-pointer hover:scale-105 transition-all py-2 px-4 text-sm shadow-select rounded-[30px]"
       for={slugify(option.label)}
     >

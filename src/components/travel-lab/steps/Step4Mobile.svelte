@@ -19,6 +19,8 @@
   import bagIcon from "@assets/icons-json/725-suitcase-travel-baggage-luggage.rough.json?url";
   import Progress from '@components/travel-lab/Progerss.svelte';
 
+  export let progressVal;
+
   const collections = [
     {
       id: 1,
@@ -417,4 +419,4 @@
 <div class="h-[70px] relative flex justify-center items-end mt-8">
   <div class="absolute w-full h-full dashed-vertical -z-10 top-0"></div>
 </div>
-<Progress />
+<Progress val={progressVal}/>

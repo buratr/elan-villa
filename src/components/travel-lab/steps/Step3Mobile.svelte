@@ -18,6 +18,8 @@
   import AreaMobile from "@components/home/head/AreaMobile.svelte";
   import Progress from '@components/travel-lab/Progerss.svelte';
   
+  export let progressVal;
+
   let items = [
     { label: "By season", value: 2, component: SeasonsFilter },
     { label: "By dates", value: 1, component: DateFilter },
@@ -88,6 +90,20 @@
         : (collections[index]["active"] = false);
     });
   };
+  
+  let selectedAreaArr: string[] = [];
+  let areaString:string =""
+  $: {
+    areaString=""
+    selectedAreaArr.forEach((item, id)=>{
+      if(selectedAreaArr.length != id+1){
+        areaString += item +", "
+      }else{
+        areaString += item
+      }
+    })
+  }
+
 </script>
 <div class="flex flex-col">
   <div class="flex flex-col justify-center text-center pt-20">
@@ -133,11 +149,11 @@
     Area :
   </span>
   <div class="w-full flex justify-center">
-    <AreaMobile {locations} class="bg-white/80 max-w-[695px] w-full" bind:selectedArea staticArea isOpen parentHeight={clientHeight} />
+    <AreaMobile {locations} class="bg-white/80 max-w-[695px] w-full" bind:selectedAreaArr bind:selectedArea staticArea isOpen parentHeight={clientHeight} />
   </div>
 </div>
 
 <div class="h-[70px] relative flex justify-center items-end mt-8">
   <div class="absolute w-full h-full dashed-vertical -z-10 top-0"></div>
 </div>
-<Progress />
+<Progress val={progressVal}/>

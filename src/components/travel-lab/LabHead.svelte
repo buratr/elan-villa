@@ -15,7 +15,7 @@
     <div class="absolute inset-0 w-full h-full bg-black/50"></div>
   </div>
 
-  <img src="{Vector661}" class="absolute bottom-0 object-contain w-full" alt="">
+  <img src="{Vector661}" class="absolute -bottom-9  object-contain w-full" alt="">
 
   <!-- Content Overlay -->
   <div class="flex flex-col justify-center items-center w-full text-center pb-10 md:pb-20 px-16 md:px-0">

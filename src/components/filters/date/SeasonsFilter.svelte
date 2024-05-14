@@ -9,9 +9,9 @@
   } from "@lib/stores/filtersStore";
 
   let periodOptions: RadioOption[] = [
-    { label: "A week-end", value: "week-end" },
-    { label: "One week", value: "one-week" },
-    { label: "One month", value: "one-month" },
+    { label: "Around a week", value: "around-a-week" },
+    { label: "Two to Three weeks", value: "two-to-three-weeks" },
+    { label: "More than a month", value: "more-than-a-month" },
   ];
 
   let selectedPeriod: RadioOption | undefined =
