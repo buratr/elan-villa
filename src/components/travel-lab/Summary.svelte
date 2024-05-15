@@ -1,11 +1,68 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
   import Button from "@components/atoms/Button.svelte";
   import { goto } from "$app/navigation";
   import SummaryLayout from "./SummaryLayout.svelte";
   import contemporary from "@assets/images/you1.png";
+  import html2canvas from 'html2canvas';
+
+  import { loadJSPDF } from '$lib/pdfService';
+
+  onMount(async () => {
+    await loadJSPDF();
+  });
+
+ let elementNode: HTMLElement | null = null;
+
+  function documentPreparation(clonedElement){
+    clonedElement.querySelector(".summary-btn")?.remove()
+    clonedElement.style.backgroundColor = "black";
+    clonedElement.style.paddingBottom = "100px";
+  }
+
+  async function saveAsPDF() {
+    try {
+      if (typeof window !== 'undefined' && window.jspdf) {
+        if(elementNode){
+          const clonedElement = elementNode.cloneNode(true) as HTMLElement;
+          documentPreparation(clonedElement)
+          document.body.appendChild(clonedElement);
+          const pageWidth = clonedElement.scrollWidth;
+          const pageHeight = clonedElement.scrollHeight;
+
+          const { jsPDF } = window.jspdf;
+          const canvas = await html2canvas(clonedElement);
+          const imageData = canvas.toDataURL('image/png');
+          const pdf = new jsPDF('p', 'px', [pageHeight, pageWidth])
+          pdf.addImage(imageData, 'JPEG',0,0,pageWidth,pageHeight);
+          pdf.save('Elan villa summary.pdf');
+          document.body.removeChild(clonedElement);
+        }
+      } else {
+        if(elementNode){
+          const clonedElement = elementNode.cloneNode(true) as HTMLElement;
+          documentPreparation(clonedElement)
+          document.body.appendChild(clonedElement);
+          const canvas = await html2canvas(clonedElement);
+          const imageData = canvas.toDataURL('image/png');
+          const downloadLink = document.createElement('a');
+          downloadLink.href = imageData;
+          downloadLink.download = 'Elan villa summary.png'; 
+          document.body.appendChild(downloadLink);
+          downloadLink.click();
+          document.body.removeChild(downloadLink);
+          document.body.removeChild(clonedElement);
+          console.error('JSPDF not loaded');
+        } 
+      }
+    } catch (error) {
+        console.error('Error saving PDF:', error);
+    }
+  }
+  
 </script>
 
-<div class="flex w-full gap-8 pt-20 flex-col justify-center">
+<div class=" flex w-full gap-8 pt-20 flex-col justify-center" bind:this={elementNode} >
   <SummaryLayout>
     <div slot="title" class="md:max-w-xs flex w-full gap-4 justify-center md:justify-start pb-10 md:pb-0">
       <span class="text-[35px] text-white">1</span>
@@ -15,7 +72,7 @@
     </div>
 
     <div slot="info" class="flex w-full flex-col justify-start items-center border-b border-gray md:border-0 px-8 md:px-0 pb-10 md:pb-0">
-      <div class="flex w-full text-white md:border-b border-gray pb-4">
+      <div class="flex w-full text-white md:border-b border-gray pb-14">
         <div class="flex flex-1 w-1/2">
           <span class="text-sm md:text-[20px] text-whtie font-semibold"
             >Choice of package</span
@@ -25,7 +82,7 @@
           <span class="text-xs md:text-base text-whtie">Travel peacefully</span>
         </div>
       </div>
-      <div class="flex w-full text-white md:border-b border-gray pb-4 pt-8">
+      <div class="flex w-full text-white md:border-b border-gray pb-14 pt-14">
         <div class="flex flex-1 w-1/2">
           <span class="text-sm md:text-[20px] text-whtie font-semibold"
             >Tailor-made experience</span
@@ -42,7 +99,7 @@
           <span class="text-xs md:text-base text-whtie">Villa specialist</span>
         </div>
       </div>
-      <div class="flex w-full text-white pb-4 pt-8">
+      <div class="flex w-full text-white pb-14 pt-14">
         <div class="flex flex-1 w-1/2">
           <span class="text-sm md:text-[20px] text-whtie font-semibold"
             >Extra cost</span
@@ -91,9 +148,9 @@
     </div>
 
     <div slot="info" class="flex w-full flex-col justify-start items-center border-b border-gray md:border-0 px-8 md:px-0 pb-10 md:pb-0">
-      <div class="flex w-full text-white md:border-b border-gray pb-4">
+      <div class="flex w-full text-white md:border-b border-gray pb-14">
         <div class="flex flex-1 w-1/2">
-          <span class="text-sm md:text-[20px] text-whtie font-semibold"
+          <span class="text-sm md:text-[20px] text-whtie font-semibold pr-2"
             >Period of your stay :</span
           >
         </div>
@@ -101,9 +158,9 @@
           <span class="text-xs md:text-base text-whtie">Summer season</span>
         </div>
       </div>
-      <div class="flex w-full text-white md:border-b border-gray pb-4 pt-8">
+      <div class="flex w-full text-white md:border-b border-gray pb-14 pt-14">
         <div class="flex flex-1 w-1/2">
-          <span class="text-sm md:text-[20px] text-whtie font-semibold"
+          <span class="text-sm md:text-[20px] text-whtie font-semibold pr-2"
             >Number of people :</span
           >
         </div>
@@ -113,7 +170,7 @@
           >
         </div>
       </div>
-      <div class="flex w-full text-white pb-4 pt-8">
+      <div class="flex w-full text-white pb-14 pt-14">
         <div class="flex flex-1 w-1/2">
           <span class="text-sm md:text-[20px] text-whtie font-semibold"
             >The area :</span
@@ -135,7 +192,7 @@
     </div>
 
     <div slot="info" class="flex w-full flex-col justify-start items-center border-b border-gray md:border-0 px-8 md:px-0 pb-10 md:pb-0">
-      <div class="flex w-full flex-col gap-2 md:border-b border-gray pb-8">
+      <div class="flex w-full flex-col gap-2 md:border-b border-gray pb-14">
         <div class="flex w-full text-white pb-4">
           <span class="text-sm md:text-[20px] text-white font-semibold"
             >In the air
@@ -153,7 +210,7 @@
         </div>
       </div>
 
-      <div class="flex w-full flex-col gap-2 pt-4">
+      <div class="flex w-full flex-col gap-2 pt-14">
         <div class="flex w-full text-white pb-4">
           <span class="text-sm md:text-[20px] text-white font-semibold"
             >On the road
@@ -174,8 +231,14 @@
     </div>
   </SummaryLayout>
   <div
-    class="flex flex-col w-full text-center pb-10 md:pb-24 px-8 md:px-0 pt-20"
-  >
+    class="summary-btn flex flex-col w-full text-center pb-10 md:pb-24 px-8 md:px-0 pt-20"
+    >
+    <div class="btn-save text-white font-bold max-w-44 mx-auto flex justify-center items-center mb-7">
+      <div class="h-[1px] w-6 bg-white mr-3"></div>
+      <button class="underline" on:click={saveAsPDF} >Save as PDF</button>
+      <div class="h-[1px] w-6 bg-white ml-3"></div>
+    </div>
+  
     <div class="flex w-full flex-wrap justify-center items-center gap-6">
       <div class="flex">
         <Button style="outlined" on:click={() => goto("/travel_lab")}
@@ -190,6 +253,12 @@
 </div>
 
 <style lang="postcss">
+  .btn-save:hover div{
+    background-color: #C09FF9;
+  }
+  .btn-save:hover{
+    color: #C09FF9;
+  }
   .active-select {
     background: radial-gradient(
         49.31% 85.29% at 9.85% 4.97%,

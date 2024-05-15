@@ -41,7 +41,7 @@
 		"flatpickr": "^4.6.13",
 		"fs": "^0.0.1-security",
 		"hammerjs": "^2.0.8",
-		"html2canvas": "^1.4.1",
+		"html2pdf.js": "^0.10.1",
 		"lodash": "^4.17.21",
 		"moment": "^2.29.4",
 		"path": "^0.12.7",

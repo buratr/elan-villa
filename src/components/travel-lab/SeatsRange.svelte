@@ -39,7 +39,7 @@
     }
   
     :global(.rangeSlider) {
-      @apply !bg-white/20;
+      @apply !bg-white/50;
     }
   
     :global(.rangeBar) {

@@ -18,6 +18,7 @@
   import carIcon from "@assets/icons-json/845-car-site-2.rough.json?url";
   import bagIcon from "@assets/icons-json/725-suitcase-travel-baggage-luggage.rough.json?url";
   import Progress from '@components/travel-lab/Progerss.svelte';
+  import SeatsRange from '../SeatsRange.svelte';
 
   export let progressVal;
 
@@ -73,11 +74,11 @@
     },
   ];
 
-  let car1 = ["Normal", "4x4"];
+  let car1 = ["Normal", "Both", "4x4"];
   let activeCar1 = "Normal";
-  let car2 = ["Normal", "Convertible"];
+  let car2 = ["Normal", "Both","Convertible"];
   let activeCar2 = "Normal";
-  let car3 = ["Electric", "Gas"];
+  let car3 = ["Electric", "Both","Gas"];
   let activeCar3 = "Electric";
 
   let bookFlight = true;
@@ -304,15 +305,18 @@
     />
   </div>
 
-  <span class="text-white pb-4 pt-8 text-xs">Pick a vehicule</span>
-  <div class="flex gap-4 w-full justify-evenly items-center">
+  <span class="text-white pb-4 pt-20 text-xs">Pick a vehicule</span>
+  <div class="flex flex-col gap-4 w-full justify-evenly items-center">
     <span class="text-white font-medium">Seats number</span>
-    <Counter class="!w-28 xl:w-32" gradient />
+    <!-- <Counter class="!w-28 xl:w-32" gradient /> -->
+    <div class="!w-64 xl:w-32 mt-4">
+      <SeatsRange />
+    </div>
   </div>
 
   <div class="flex gap-4 w-full flex-col items-center pt-10">
     <div
-      class="flex items-center justify-around rounded-[30px] w-full max-w-[260px] shadow-select p-2 bg-white/80"
+      class="flex items-center justify-around rounded-[30px] w-full max-w-[320px] shadow-select p-2 bg-white/80"
     >
       {#each car1 as car}
         <!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -328,7 +332,7 @@
       {/each}
     </div>
     <div
-      class="flex items-center justify-around rounded-[30px] w-full max-w-[260px] shadow-select p-2 bg-white/80"
+      class="flex items-center justify-around rounded-[30px] w-full max-w-[380px] shadow-select p-2 bg-white/80"
     >
       {#each car2 as car}
         <!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -344,7 +348,7 @@
       {/each}
     </div>
     <div
-      class="flex items-center justify-around rounded-[30px] w-full max-w-[260px] shadow-select p-2 bg-white/80"
+      class="flex items-center justify-around rounded-[30px] w-full max-w-[320px] shadow-select p-2 bg-white/80"
     >
       {#each car3 as car}
         <!-- svelte-ignore a11y-click-events-have-key-events -->
