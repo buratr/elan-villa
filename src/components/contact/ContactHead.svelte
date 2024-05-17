@@ -7,6 +7,13 @@
   import { fade, fly, slide, blur } from "svelte/transition";
   import Map from "@assets/images/map_top_locations.png";
   import Input from "@components/atoms/Input.svelte";
+  //import MapPin from "@components/home/top-locations/MapPin.svelte";
+  import MapPin from "@assets/svgs/icons/map-pin.svg?url";
+  import lineEmail from "@assets/images/line-email.png";
+  import linePhone from "@assets/images/line-phone.png";
+  import { villas } from "@lib/top-locations/villas-slider";
+  import { onMount } from 'svelte';
+
   import {
     circInOut,
     quadInOut,
@@ -35,15 +42,50 @@
   ];
 
   let activeTabValue = 1;
+
+  let outerWidth: number;
+  let scalePoint: number;
+
+  function calculateCoefficient(value:number) {
+    if (value <= 960) {
+        return 0.5;
+    } else if (value >= 1440) {
+        return 1;
+    }
+    const percentage = (value - 960) / (1440 - 960);
+    const coefficient = 0.5 + percentage * (1 - 0.5);
+    return coefficient;
+}
+
+
+
+$: {
+  if(outerWidth >= 960){
+    scalePoint = Number(calculateCoefficient(outerWidth).toFixed(2))
+  }else{
+    scalePoint=1
+  }
+}
+
 </script>
 
+<svelte:window bind:outerWidth />
+
 <div
-  class="flex flex-col md:flex-row relative px-4 md:px-0 bg-cover justify-center min-h-[1400px] md:min-h-[1300px]"
+  class="flex flex-col md:flex-row relative px-0 md:px-0 bg-cover justify-start min-h-[800px] md:min-h-[1300px]"
 >
+{#if activeTabValue === 1}
+<img src="{lineEmail}" alt="" class="md:left-[80px] md:bottom-[90px] bottom-36 left-auto right-0 absolute w-[44.115vw] max-w-[847px] min-w-[449px]">
+
+{:else if activeTabValue === 2}
+<img src="{linePhone}" alt="" class=" md:bottom-[90px] bottom-[15%] left-auto right-0 absolute w-[42.396vw] max-w-[814px] min-w-[342px]">
+
+{/if}
+
 <img src="{ContactBG}" alt="" class="-z-10 absolute w-full h-full object-cover">
   <div
-    class="flex flex-row w-full md:w-1/2 lg:w-1/3 items-center justify-center md:pl-[5%] md:mt-32"
-  >
+    class="flex flex-row w-full md:w-1/2 lg:w-1/3 items-center justify-center md:pl-[5%] md:mt-32 max-md:pt-[120px]"
+    >
     <div class="flex flex-col w-fit">
       <div class="flex flex-col pb-10">
         <h2
@@ -64,8 +106,8 @@
       />
     </div>
   </div>
-  <div class="flex w-full pt-10 md:w-2/3 justify-center">
-    {#if activeTabValue === 1}
+  <div class="flex w-full pt-10 md:w-2/3 justify-center ">
+    {#if activeTabValue === 3}
       <div
         in:blur={{
           delay: 0,
@@ -77,9 +119,13 @@
           duration: 0,
           easing: sineIn,
         }}
-        class="flex items-center"
-      >
-        <img src={Map} alt="Map Contact" />
+        class="flex items-center max-md:mb-[28vw]"
+        >
+        <div class=" relative">
+          <img src={Map} alt="Map Contact"/>
+          <img src={MapPin} alt="Map Pin Hover" class="absolute w-20 lg:top-[54%] lg:left-[46%] top-[50%] left-[44%] max-md:top-[48%]" style="scale: {scalePoint};"/>
+        </div>
+        
       </div>
     {/if}
     {#if activeTabValue === 2}
@@ -94,10 +140,10 @@
           duration: 0,
           easing: sineIn,
         }}
-        class="flex items-center md:pl-[10%]"
+        class="flex items-center md:pl-[10%] lg:mr-[20%] max-md:mb-[280px] "
       >
         <div
-          class="flex flex-col bg-black/25 rounded-[30px] px-8 py-16 sm:px-16 sm:py-24 shadow-select text-white"
+          class="flex flex-col bg-[#00000040] rounded-[30px] px-8 py-16 sm:px-16 sm:py-24 shadow-select text-white"
         >
           <span class="text-white text-[25px] md:text-[35px] font-athena pb-14"
             >Opening hours</span
@@ -118,7 +164,7 @@
         </div>
       </div>
     {/if}
-    {#if activeTabValue === 3}
+    {#if activeTabValue === 1}
       <div
         in:blur={{
           delay: 0,
@@ -130,10 +176,10 @@
           duration: 0,
           easing: sineIn,
         }}
-        class="flex w-full items-center justify-center h-full"
+        class="flex w-full items-center justify-center h-full "
       >
         <div
-          class="flex flex-col bg-black/25 rounded-[30px] gap-10 p-8 pb-16 sm:p-16 shadow-select text-white"
+          class="max-md:mb-[280px] flex flex-col bg-[#00000040] rounded-[30px] gap-10 p-8 pb-16 sm:p-16 shadow-select text-white"
         >
           <span class="text-white text-[25px] md:text-[35px] font-athena md:pb-10"
             >Contact form</span

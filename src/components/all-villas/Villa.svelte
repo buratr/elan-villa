@@ -119,7 +119,7 @@
     {#if villa.mostPopular}
       <PopularBadge />
     {/if}
-    <div class="absolute top-6 right-8 flex-col gap-4 hidden md:flex">
+    <!-- <div class="absolute top-6 right-8 flex-col gap-4 hidden md:flex">
       <IconCircle active={liked} on:click={() => (liked = !liked)}>
         <LordIcon
           name="like"
@@ -138,7 +138,7 @@
             : "text-purple group-hover:text-white"}
         />
       </IconCircle>
-    </div>
+    </div> -->
   </div>
 
   <div class="pt-4 md:hidden flex justify-between {light? 'text-black':'text-white'}">
@@ -170,7 +170,6 @@
  
 
   <!-- svelte-ignore a11y-click-events-have-key-events -->
-  
   <div class="pt-4 justify-between hidden md:flex"
     on:click={() => goto("/villa/blanc-bleu")} >
     <div>

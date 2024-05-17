@@ -36,8 +36,15 @@
     },
   ];
 
-  let active = 1;
-
+ export let currentAmenities:string = "";
+ let active = 1;
+$:{
+  items.forEach((item, id)=>{
+    if(id === active){
+      currentAmenities=item.name
+    }
+  })
+}
   const getIconName = (name: string) => {
     const lowerCaseName = name.toLowerCase();
     
@@ -88,7 +95,7 @@
         gravity: 1.2,
       }}
       on:move={onMove}
-    >
+      >
       <!-- svelte-ignore a11y-no-static-element-interactions -->
       {#each items as item, i}
         <div class="block flex flex-col items-center gap-4 text-center">
@@ -98,7 +105,7 @@
               ? 'bg-gradient-to-r from-purple-dark to-purple-darker'
               : 'bg-white/20'} text-white rounded-full p-4"
             on:click={() => (active = i)}
-          >
+            >
             <!-- <svelte:component
               this={getIconComponent(item.icon)}
               class="stroke-white stroke-7 md:!w-[52px] md:!h-[52px] !w-[32px] !h-[32px]"
@@ -115,7 +122,7 @@
 
   <button
     on:click={() => index--}
-    class="-left-10 absolute top-1/2 !-translate-y-1/2 z-10"
+    class="-left-10 absolute top-1/2 !-translate-y-1/2 z-10 hover:scale-110"
   >
     <IconArrowLeft
       width="32"
@@ -124,7 +131,7 @@
   </button>
   <button
     on:click={() => index++}
-    class="-right-10 absolute top-1/2 !-translate-y-1/2 z-10"
+    class="-right-10 absolute top-1/2 !-translate-y-1/2 z-10  hover:scale-110"
   >
     <IconArrowLeft
       width="32"

@@ -263,7 +263,6 @@
       //console.log(findOption)
     })
     experience = [...experience]
-    console.log(experience)
   }
 
 </script>
@@ -296,20 +295,20 @@
   <div slot="right">
     <!-- svelte-ignore a11y-no-static-element-interactions -->
     <div
-      class="hidden md:grid grid-cols-3 gap-x-4 pt-10 justify-center items-center"
-    >
+      class="hidden md:grid grid-cols-3 gap-x-4 pt-10 justify-center items-start"
+     >
       <!-- svelte-ignore a11y-click-events-have-key-events -->
       <div
         class="{active === 1
-          ? 'active-select'
-          : ''} flex relative flex-col text-center justify-center rounded-[30px] max-w-[220px] pt-20 bg-white/80 shadow-select px-4 pb-6 gap-4 items-center"
-      >
+          ? 'active-select !min-h-[260px]'
+          : ''} flex relative flex-col text-center justify-center min-h-[231px] rounded-[30px] max-w-[220px] pt-20 bg-white/80 shadow-select px-4 pb-6 gap-4 items-center"
+       >
         <div
           class="p-4 absolute bg-gradient-to-r from-purple-dark to-purple-darker rounded-full -top-[55px]"
         >
           <LordIcon src={IconBag} size="91" class="text-white" />
         </div>
-        <span class="text-[30px] font-athena {active === 1 ? 'text-white' : ''}"
+        <span class=" text-[20px] font-athena {active === 1 ? 'text-white text-[30px]' : ''}"
           >Casual trip</span
         >
         <span
@@ -325,15 +324,15 @@
       <!-- svelte-ignore a11y-no-static-element-interactions -->
       <div
         class="{active === 2
-          ? 'active-select'
-          : ''} flex relative flex-col text-center justify-center rounded-[30px] max-w-[220px] pt-16 bg-white/80 shadow-select px-4 pb-6 gap-4 items-center"
+          ? 'active-select !min-h-[260px]'
+          : ''} flex relative flex-col text-center justify-center min-h-[231px] rounded-[30px] max-w-[220px] pt-16 bg-white/80 shadow-select px-4 pb-6 gap-4 items-center"
       >
         <div
           class="p-4 absolute bg-gradient-to-r from-purple-dark to-purple-darker rounded-full -top-[55px]"
         >
           <LordIcon src={IconPeace} size="91" class="text-white" />
         </div>
-        <span class="text-[30px] font-athena {active === 2 ? 'text-white' : ''}"
+        <span class="mt-4 text-[20px] font-athena {active === 2 ? 'text-white text-[30px]' : ''}"
           >Travel peacefully</span
         >
         <span
@@ -348,15 +347,15 @@
       <!-- svelte-ignore a11y-click-events-have-key-events -->
       <div
         class="{active === 3
-          ? 'active-select'
-          : ''} flex relative flex-col text-center justify-center rounded-[30px] max-w-[220px] pt-16 bg-white/80 shadow-select px-4 pb-6 gap-4 items-center"
-      >
+          ? 'active-select !min-h-[260px]'
+          : ''} flex relative flex-col text-center justify-center min-h-[231px] rounded-[30px] max-w-[220px] pt-16 bg-white/80 shadow-select px-4 pb-6 gap-4 items-center"
+        >
         <div
           class="p-4 absolute bg-gradient-to-r from-purple-dark to-purple-darker rounded-full -top-[55px]"
-        >
+          >
           <LordIcon src={IconDiamond} size="91" class="text-white" />
         </div>
-        <span class="text-[30px] font-athena {active === 3 ? 'text-white' : ''}"
+        <span class="mt-4 text-[20px] font-athena {active === 3 ? 'text-white text-[30px]' : ''}"
           >Premium holiday</span
         >
         <Button

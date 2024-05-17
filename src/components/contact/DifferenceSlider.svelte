@@ -5,6 +5,7 @@
   import extra from "@assets/images/equipements.jpeg";
   import { slidy } from "@slidy/core";
   import { useModal } from "@components/Modal.svelte";
+  import IconArrowLeft from "@assets/svgs/icons/arrow-left.svg?component";
 
   const galleryCategories = [
     {
@@ -24,6 +25,23 @@
       name: "WELCOME GIFTS",
       url: extra,
     },
+    {
+      name: "PERSONAL WELCOMING 1",
+      url: welcoming,
+      desc: "we welcome you UPON YOUR ARRIVAL ON THE ISLAND",
+    },
+    {
+      name: "TRANSFER 1",
+      url: transfer,
+    },
+    {
+      name: "CONCIERGE SERVICES 1",
+      url: services,
+    },
+    {
+      name: "WELCOME GIFTS 1",
+      url: extra,
+    },
   ];
 
   const openGallery = () => {
@@ -37,7 +55,11 @@
     wrap,
     outerWidth: number;
 
+  //$: width = outerWidth >= 1600 ? "28%" : outerWidth > 960 ? "40%" : "55%";
   $: width = outerWidth >= 1600 ? "28%" : outerWidth > 960 ? "40%" : "55%";
+  //$: width = outerWidth >= 960 ? "35%" : "100%";
+
+  $: {console.log(index)}
 
   function onMove(e: any) {
     index = e.detail.index;
@@ -54,8 +76,8 @@
 <svelte:window bind:outerWidth />
 <div class="flex py-20 justify-center flex-col relative z-10">
   <section
-    class="h-[300px] md:h-[700px]"
-    style="--gap: {gap}px; --width: {width};"
+    class="h-[300px] md:h-[700px] gap-0"
+     style="--gap: {gap}px; --width: {width};"
     bind:this={wrap}
   >
     <!-- svelte-ignore a11y-no-static-element-interactions -->
@@ -67,7 +89,7 @@
         vertical: false,
         duration: 450,
         clamp: 0,
-        indent: 0,
+        indent: 1,
         snap: "center",
         gravity: 1.2,
       }}
@@ -77,17 +99,20 @@
       <!-- svelte-ignore a11y-no-static-element-interactions -->
       {#each galleryCategories as category}
         <!-- svelte-ignore a11y-click-events-have-key-events -->
-        <div class="block group" on:click={onClick}>
+        <div class="block group relative" on:click={onClick}>
           <img src={category.url} alt="" class="object-cover h-full w-full" />
+          <div class="absolute w-full h-1/2 left-0 bottom-0  bg-gradient-to-b from-[#00000000] to-[#000000]"></div>
+          
           <div
-            class="flex flex-col w-full justify-between absolute bottom-0 flex-wrap pl-4 md:pl-12 pb-8"
-          >
+            class="slide-info flex flex-col w-full justify-between absolute bottom-0 flex-wrap pl-4 md:pl-12 pb-8"
+            >
             <span
               class="font-bold text-[20px] lg:text-[45px] text-white uppercase"
               >{category.name}</span
             >
             <span
-              class="text-[8px] tracking-[2.5px] lg:text-[18px] text-white uppercase md:w-1/2"
+              
+              class="slide-descript text-[8px] overflow-hidden tracking-[2.5px] lg:text-[18px] text-white uppercase md:w-1/2"
               >{category.desc ?? '' }</span
             >
           </div>
@@ -108,9 +133,37 @@
       {/each}
     {/if}
   </nav>
+
+  <button
+    on:click={() => index--}
+    class=" {index>0?"block":"hidden"} bg-white/75 p-2 rounded-full left-4 absolute top-1/2 !-translate-y-1/2 z-10 hover:scale-110"
+  >
+    <IconArrowLeft
+      width="32"
+      class="stroke-purple-secondary cursor-pointer !w-auto !h-auto stroke-9 "
+    />
+  </button>
+  <button
+    on:click={() => index++}
+    class=" {index!==galleryCategories.length-1?"block":"hidden"} bg-white/75 p-2 rounded-full right-4 absolute top-1/2 !-translate-y-1/2 z-10  hover:scale-110"
+  >
+    <IconArrowLeft
+      width="32"
+      class="stroke-purple-secondary cursor-pointer !w-auto !h-auto stroke-9 !-rotate-180"
+    />
+  </button>
+
 </div>
 
 <style>
+  .slide-info:hover .slide-descript {
+    max-height: 200px;
+  }
+  .slide-descript {
+    max-height: 0;
+      overflow: hidden;
+      transition: max-height 1s ease;
+  }
   .slider {
     list-style: none;
     overflow-y: visible !important;

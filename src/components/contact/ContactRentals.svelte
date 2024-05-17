@@ -2,7 +2,7 @@
   import team from "@assets/images/Team.png";
 </script>
 
-<div class="flex flex-col">
+<div class="flex flex-col -mt-[150px]">
   <div class="flex flex-col md:flex-row overflow-hidden md:pt-32">
     <div class="flex md:w-1/2 w-full order-2 top-12 relative items-end">
       <img src={team} class="w-fit h-fit" alt="team" />
@@ -29,40 +29,30 @@
     </div>
   </div>
 
-  <div class="dark-bg flex flex-col md:flex-row pt-14 pb-16 justify-center gap-16 items-center flex-wrap">
-    <div
-      class="flex flex-col gap-4 items-center w-1/2 md:w-auto order-1 md:order-1"
-    >
-      <span class="font-athena text-purple-light text-[60px] md:text-[80px]"
-        >3</span
-      >
+  <div class="
+  max-md:grid max-md:grid-cols-2 
+  dark-bg flex flex-col md:flex-row pt-14 pb-16 justify-center gap-16 items-center flex-wrap px-4">
+
+    <div class="flex flex-col gap-4 items-center w-1/2 md:w-auto order-1 max-md:mx-auto">
+      <span class="font-athena text-purple-light text-[60px] md:text-[80px]">3</span>
       <span class="text-white font-medium text-center tracking-[4px]">team members</span>
     </div>
-    <div
-      class="flex flex-col gap-4 items-center w-1/2 md:w-auto order-3 md:order-1"
-    >
-      <span class=" font-athena text-purple-light text-[60px] md:text-[80px]"
-        >10+</span
-      >
-      <span class="text-white font-medium text-center tracking-[4px]">years of experience</span
-      >
+
+    <div class="flex flex-col gap-4 items-center w-1/2 md:w-auto order-1 max-md:mx-auto">
+      <span class=" font-athena text-purple-light text-[60px] md:text-[80px]">10+</span>
+      <span class="text-white font-medium text-center tracking-[4px]">years of experience</span>
     </div>
-    <div
-      class="flex flex-col gap-4 items-center w-1/2 md:w-auto order-4 md:order-1"
-    >
-      <span class=" font-athena text-purple-light text-[60px] md:text-[80px]"
-        >1500+</span
-      >
+
+    <div class="flex flex-col gap-4 items-center w-1/2 md:w-auto order-1 max-md:mx-auto">
+      <span class=" font-athena text-purple-light text-[60px] md:text-[80px]">1500+</span>
       <span class="text-white font-medium text-center tracking-[4px]">HAPPY TRAVELERS</span>
     </div>
-    <div
-      class="flex flex-col gap-4 items-center w-1/2 md:w-auto order-2 md:order-1"
-    >
-      <span class=" font-athena text-purple-light text-[60px] md:text-[80px]"
-        >450+</span
-      >
+
+    <div class="flex flex-col gap-4 items-center w-1/2 md:w-auto order-1 max-md:mx-auto">
+      <span class=" font-athena text-purple-light text-[60px] md:text-[80px]">450+</span>
       <span class="text-white font-medium text-center tracking-[4px]">VILLAS</span>
     </div>
+
   </div>
 </div>
 

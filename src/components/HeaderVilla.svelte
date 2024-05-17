@@ -20,6 +20,7 @@
   import Area from "./home/head/Area.svelte";
   import { locations } from "@lib/locations/locations";
   import VillaShare from "./VillaShare.svelte";
+  import ButtonHeaderVilla from "./atoms/buttonHeaderVilla.svelte";
 
   export let links: HeaderLink[] = [];
   $: lightHeader = $page.url.pathname === "/";
@@ -52,7 +53,7 @@
 <div class="fixed w-full z-30 top-0 h-0">
   <VillaShare bind:isOpen={isPopupOpen} class="area top-0 z-50" parentHeight={clientHeight} />
   <div class="header" bind:clientHeight>
-    <!-- <div class="header-dark {offScreen ? '!opacity-100' : ''}" /> -->
+    <div class="header-dark {offScreen ? '!opacity-100' : ''}" />
     <!-- Left side: Logo -->
     <div class="logo hidden md:block">
       <a href="/">
@@ -68,33 +69,49 @@
     <!-- Right side: Links and Menu -->
     <div class="flex justify-end w-full">
       <div class="icon-links">
-        <div class="flex items-center gap-4">
+
+        <ButtonHeaderVilla
+          on:click={() => openVideo()}
+          iconName="gallery" buttonName="Video" dark={offScreen}
+        />
+
+        <ButtonHeaderVilla iconName="360" buttonName="Visit the villa" dark={offScreen}/>
+
+        <ButtonHeaderVilla
+          on:click={() => isPopupOpen = true}
+          iconName="share" buttonName="Share" dark={offScreen}
+        />
+
+        <ButtonHeaderVilla iconName="like" buttonName="Save" dark={offScreen}/>
+
+        <!-- <div class="flex items-center gap-4">
           <Link class="hidden md:inline-block">Video</Link>
           <IconButton gap="1" dark  on:click={() => openVideo()}>
-            <LordIcon name="gallery" size="32" class="text-white" />
+            
+            <LordIcon name="gallery" size="32" class="{offScreen ? 'text-black bg-white rounded-full hover:bg-purple-light' : 'text-white'}" />
           </IconButton>
-        </div>
+        </div> -->
 
-        <div class="flex items-center gap-4">
+        <!-- <div class="flex items-center gap-4">
           <Link class="hidden md:inline-block">Visit the villa</Link>
           <IconButton gap="1" dark>
-            <LordIcon name="360" size="32" class="text-white" />
+            <LordIcon name="360" size="32" class="{offScreen ? 'text-black bg-white rounded-full hover:bg-purple-light' : 'text-white'}" />
           </IconButton>
-        </div>
+        </div> -->
 
-        <div class="flex items-center gap-4 relative">
+        <!-- <div class="flex items-center gap-4 relative">
           <Link class="hidden md:inline-block">Share</Link>
           <IconButton gap="1" dark on:click={() => isPopupOpen = true}>
-            <LordIcon name="share" size="32" class="text-white" />
+            <LordIcon name="share" size="32" class="{offScreen ? 'text-black bg-white rounded-full hover:bg-purple-light' : 'text-white'}" />
           </IconButton>
-        </div>
+        </div> -->
 
-        <div class="flex items-center gap-4">
+        <!-- <div class="flex items-center gap-4">
           <Link class="hidden md:inline-block">Save</Link>
           <IconButton gap="1" dark>
-            <LordIcon name="like" size="32" class="text-white" />
+            <LordIcon name="like" size="32" class="{offScreen ? 'text-black bg-white rounded-full hover:bg-purple-light' : 'text-white'}" />
           </IconButton>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>

@@ -19,6 +19,9 @@
     backdropClose: boolean;
     size?: "sm" | "lg" | "full" | "screen";
     overflow? : boolean;
+    closePanel?: {
+              status?:boolean;
+              infoText?: string }
   };
 
   let modalComponent = writable<ComponentType | undefined>(undefined);
@@ -26,6 +29,7 @@
   let modalConfig = writable<ModalConfig | undefined>({
     backdropClose: true,
     overflow: false,
+    closePanel: {status:false, infoText:""}
   });
 
   const openModal = <T extends SvelteComponent>(
@@ -56,8 +60,9 @@
     backdropClose = true,
     size = "lg",
     overflow = false,
+    closePanel={},
   }: ModalConfig) => {
-    modalConfig.set({ backdropClose, size, overflow });
+    modalConfig.set({ backdropClose, size, overflow, closePanel });
     return {
       open: openModal,
       close: closeModal,
@@ -153,27 +158,30 @@
       style="z-index:{`${90 * (index + 1)}`}"
       >
       <!-- svelte-ignore a11y-no-static-element-interactions -->
+      {#if $modalConfig?.closePanel?.status}
+        <div class="absolute flex w-full items-center bg-black top-0 p-6 bottom-auto z-40">
+          <div
+            on:click={() => {
+              if ($modalConfig?.backdropClose) closeModal();
+            }}
+            >
+            <CloseModalIcon
+            width="48"
+            height="48" 
+            class="cursor-pointer"
+            />
+          </div>
 
-      <div class="absolute flex w-full items-center bg-black top-0 p-6 bottom-auto z-40">
-        <div
-          on:click={() => {
-            if ($modalConfig?.backdropClose) closeModal();
-          }}
-          >
-          <CloseModalIcon
-          width="48"
-          height="48" 
-          class="cursor-pointer"
-          />
+          <div class="ml-6 text-base font-medium text-white">
+            <!-- Close infoText -->
+            {$modalConfig?.closePanel?.infoText}
+          </div>
         </div>
-
-        <div class="ml-6 text-base font-medium text-white">
-          Close the filters
-        </div>
-      </div>
+      {/if}
+      
       <div
         bind:this={modalWrapperElements[index]}
-        class="mt-7  modal-box relative {$modalConfig?.overflow ? '!overflow-visible' : ''} {$modalConfig?.size}"
+        class="{$modalConfig?.closePanel?.status===true?"mt-7":""}  modal-box relative {$modalConfig?.overflow ? '!overflow-visible' : ''} {$modalConfig?.size}"
         style:width={$modalWidths[index]}
         style="z-index:{`${30 * (index + 1)}`}"
         >

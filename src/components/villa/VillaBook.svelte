@@ -42,7 +42,7 @@
         </div>
         <div class="flex flex-col gap-4 items-center w-1/2 md:w-auto order-2 md:order-1">
           <span class=" font-athena text-purple-light text-[60px] md:text-[80px]">2,429</span>
-          <span class="text-white font-medium text-center tracking-[4px]">DOLLAR BY NIGHT</span>
+          <span class="text-white font-medium text-center tracking-[4px]">BEST RATE</span>
         </div>
       </div>
     </div>

@@ -11,7 +11,7 @@
   };
 
   const openFiltersMenu = () => {
-    const modal = useModal({ backdropClose: true, size: "full" });
+    const modal = useModal({ backdropClose: true, size: "full", closePanel:{status:true, infoText:"Close the filters"} });
 
     modal.open(AllFilters, {
       class: "flex flex-col bg-white pb-32 pt-8 px-8",

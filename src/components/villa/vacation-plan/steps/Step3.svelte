@@ -28,11 +28,47 @@
   import Service from "../Service.svelte";
   import { slide } from "svelte/transition";
 
-  let active: number | undefined = 2;
+  //let active: number | undefined = 2;
+  let active: number | undefined = undefined;
+  const experienceGroup = [
+    {
+      name:"Casual Trip",
+      options:["Meet & Greet", 
+      "Escort to/from the villa", 
+      "Welcome gifts", 
+      "Daily maid service", 
+      "Villa specialist"]
+    },
+    {
+      name:"Travel Peacefully",
+      options:["Meet & Greet", 
+      "Escort to/from the villa", 
+      "Welcome gifts", 
+      "Daily maid service", 
+      "Villa specialist", 
+      "Continental breakfast", 
+      "Car rental quote", 
+      "Airplane tickets quote"]
+    },
+    {
+      name:"Premium Holiday",
+      options:["Meet & Greet", 
+      "Escort to/from the villa", 
+      "Welcome gifts", 
+      "Daily maid service", 
+      "Villa specialist", 
+      "Continental breakfast", 
+      "Car rental quote", 
+      "Airplane tickets quote", 
+      "Concierge service 24/7", 
+      "Restaurants reservations", 
+      "Activities reservations"]
+    },
+  ]
 
 
 
-  const experience = [
+  let experience = [
     {
       id: 1,
       icon: IconPlane,
@@ -71,32 +107,32 @@
     },
     {
       id: 7,
-      icon: IconService,
-      decs: "Concierge service 24/7",
-      active: false,
-    },
-    {
-      id: 8,
-      icon: IconPlate,
-      decs: "Restaurants reservations",
-      active: false,
-    },
-    {
-      id: 9,
-      icon: IconYacht,
-      decs: "Activities reservations",
-      active: false,
-    },
-    {
-      id: 10,
       icon: IconCarrent,
       decs: "Car rental quote",
       active: false,
     },
     {
-      id: 11,
+      id: 8,
       icon: IconAirplane,
       decs: "Airplane tickets quote",
+      active: false,
+    },
+    {
+      id: 9,
+      icon: IconService,
+      decs: "Concierge service 24/7",
+      active: false,
+    },
+    {
+      id: 10,
+      icon: IconPlate,
+      decs: "Restaurants reservations",
+      active: false,
+    },
+    {
+      id: 11,
+      icon: IconYacht,
+      decs: "Activities reservations",
       active: false,
     },
   ];
@@ -181,6 +217,19 @@
     },
   ];
 
+
+  const findActiveGroup = () => {
+    const activeOptionsSet = new Set(experience.filter(item => item.active).map(item => item.decs));
+    let matchingGroupId = -1;
+    experienceGroup.forEach((group, index) => {
+        const groupOptions = new Set(group.options);
+        if ([...groupOptions].every(option => activeOptionsSet.has(option))) {
+            matchingGroupId = index;
+        }
+    });
+    return matchingGroupId+1;
+  }
+
   let showAll = false;
   let showAllExtra = false;
 
@@ -190,6 +239,7 @@
         experience[i]["active"] = !experience[i]["active"];
       }
     });
+    active=findActiveGroup()
   };
 
   const addService = (id: number) => {
@@ -199,6 +249,22 @@
       }
     });
   };
+
+  const trevelPlancChange = (plan:number)=>{
+    experience.map(item => {item.active = false;return item; });
+
+    experienceGroup[plan-1].options.forEach((option)=>{
+      experience.map(item => {
+        if (item.decs === option) {
+          item.active = true;
+        }
+        return item;
+      });
+      //console.log(findOption)
+    })
+    experience = [...experience]
+  }
+
 </script>
 
 <StepLayout class="pb-20">
@@ -221,67 +287,73 @@
   <div slot="option">
     <!-- svelte-ignore a11y-no-static-element-interactions -->
     <div
-      class="hidden md:grid grid-cols-3 gap-x-4 pt-20 justify-center items-baseline"
-    >
+      class="hidden md:grid grid-cols-3 gap-x-4 pt-20 justify-start items-start"
+      >
       <!-- svelte-ignore a11y-click-events-have-key-events -->
       <div
         class="{active === 1
-          ? 'active-select'
-          : ''} flex relative flex-col text-center justify-center rounded-[30px] max-w-[260px] pt-16 bg-white/80 shadow-select px-10 pb-6 gap-4 items-center"
-        on:click={() => (active = 1)}
-      >
+          ? 'active-select !min-h-[260px]'
+          : ''} flex relative flex-col text-center justify-center min-h-[220px] rounded-[30px] max-w-[260px] pt-16 bg-white/80 shadow-select px-10 pb-6 gap-4 items-center"
+        on:click={() => {trevelPlancChange(1); active = 1}}
+        >
         <div
           class="p-4 absolute bg-gradient-to-r from-purple-dark to-purple-darker rounded-full -top-[55px]"
         >
           <LordIcon src={IconBag} size="91" class="text-white" />
         </div>
-        <span class="text-[30px] font-athena {active === 1 ? 'text-white' : ''}"
+        <span class="mt-4 text-[20px] leading-none font-athena {active === 1 ? 'text-white text-[30px]' : ''}"
           >Casual trip</span
         >
         <span
           class="text-purple text-sm {active === 1 ? 'text-purple-light' : ''}"
           >-50 % off services fees</span
         >
-        <Button style={active === 1 ? "primary" : "outlined"}>Select</Button>
+        <Button 
+        on:click={() => {trevelPlancChange(1); active = 1}}
+        style={active === 1 ? "primary" : "outlined"}>Select</Button>
       </div>
       <!-- svelte-ignore a11y-click-events-have-key-events -->
       <!-- svelte-ignore a11y-no-static-element-interactions -->
       <div
-        on:click={() => (active = 2)}
+        on:click={() => {trevelPlancChange(2); active = 2}}
         class="{active === 2
-          ? 'active-select'
-          : ''} flex relative flex-col text-center justify-center rounded-[30px] max-w-[260px] pt-16 bg-white/80 shadow-select px-10 pb-6 gap-4 items-center"
-      >
+          ? 'active-select !min-h-[260px]'
+          : ''} flex relative flex-col text-center justify-center min-h-[220px] rounded-[30px] max-w-[260px] pt-16 bg-white/80 shadow-select px-10 pb-6 gap-4 items-center"
+        >
         <div
           class="p-4 absolute bg-gradient-to-r from-purple-dark to-purple-darker rounded-full -top-[55px]"
         >
           <LordIcon src={IconPeace} size="91" class="text-white" />
         </div>
-        <span class="text-[30px] font-athena {active === 2 ? 'text-white' : ''}"
+        <span class="mt-4 text-[20px] leading-none font-athena {active === 2 ? 'text-white text-[30px]' : ''}"
           >Travel peacefully</span
         >
         <span
           class="text-purple text-sm {active === 2 ? 'text-purple-light' : ''}"
           >-25 % off services fees</span
         >
-        <Button style={active === 2 ? "primary" : "outlined"}>Select</Button>
+        <Button 
+        on:click={() => {trevelPlancChange(2); active = 2}}
+        style={active === 2 ? "primary" : "outlined"}>Select</Button>
       </div>
       <!-- svelte-ignore a11y-click-events-have-key-events -->
       <div
-        on:click={() => (active = 3)}
+        on:click={() => {trevelPlancChange(3); active = 3}}
         class="{active === 3
-          ? 'active-select'
-          : ''} flex relative flex-col text-center justify-center rounded-[30px] max-w-[260px] pt-16 bg-white/80 shadow-select px-10 pb-6 gap-4 items-center"
-      >
+          ? 'active-select !min-h-[260px]'
+          : ''} flex relative flex-col text-center justify-center min-h-[220px] rounded-[30px] max-w-[260px] pt-16 bg-white/80 shadow-select px-10 pb-6 gap-4 items-center"
+        >
         <div
           class="p-4 absolute bg-gradient-to-r from-purple-dark to-purple-darker rounded-full -top-[55px]"
         >
           <LordIcon src={IconDiamond} size="91" class="text-white" />
         </div>
-        <span class="text-[30px] font-athena {active === 3 ? 'text-white' : ''}"
+        <span class="mt-4 text-[20px] leading-none font-athena {active === 3 ? 'text-white text-[30px]' : ''}"
           >Premium holiday</span
         >
-        <Button style={active === 3 ? "primary" : "outlined"}>Select</Button>
+        <Button 
+        on:click={() => {trevelPlancChange(3); active = 3}}
+        style={active === 3 ? "primary" : "outlined"}>Select</Button>
       </div>
     </div>
 
@@ -300,7 +372,7 @@
           <LordIcon src={IconLab} size="88" class="text-purple-light" />
         </div>
       </div>
-      <p class="text-[25px] md:text-[35px] font-athena text-white self-center">
+      <p class="text-[25px] md:text-[35px] leading-none font-athena text-white self-center">
         Tailor-made Experience
       </p>
       <div></div>

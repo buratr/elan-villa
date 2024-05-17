@@ -1,4 +1,5 @@
 <script lang="ts">
+  import IconArrowLeft from "@assets/svgs/icons/arrow-left.svg?component";
   import { slidy } from "@slidy/core";
   import { villas } from "@lib/top-locations/villas-slider";
   import Villa from "@components/all-villas/Villa.svelte";
@@ -10,6 +11,8 @@
 
   $: width = outerWidth >= 960 ? "35%" : "100%";
 
+  //$: {console.log(index)}
+
   function onMove(e: any) {
     index = e.detail.index;
   }
@@ -17,7 +20,7 @@
 
 <svelte:window bind:outerWidth />
 
-<div class="flex flex-col pt-12 md:pt-20 pb-14 md:pb-24">
+<div class="flex flex-col pt-12 md:pt-20 pb-14 md:pb-24 relative">
   <h3
     class="font-athena text-[25px] md:text-[35px] text-gray-darker md:pb-16 pl-[50px]"
   >
@@ -42,7 +45,7 @@
         gravity: 1.2,
       }}
       on:move={onMove}
-    >
+      >
       <!-- svelte-ignore a11y-no-static-element-interactions -->
       {#each villas as villa}
         <div class="block">
@@ -63,6 +66,26 @@
       {/each}
     {/if}
   </nav>
+
+  <button
+    on:click={() => index--}
+    class=" {index>0?"block":"hidden"} bg-white/75 p-2 rounded-full left-4 absolute top-1/2 !-translate-y-1/2 z-10 hover:scale-110"
+  >
+    <IconArrowLeft
+      width="32"
+      class="stroke-purple-secondary cursor-pointer !w-auto !h-auto stroke-9 "
+    />
+  </button>
+  <button
+    on:click={() => index++}
+    class=" {index!==villas.length-1?"block":"hidden"} bg-white/75 p-2 rounded-full right-4 absolute top-1/2 !-translate-y-1/2 z-10  hover:scale-110"
+  >
+    <IconArrowLeft
+      width="32"
+      class="stroke-purple-secondary cursor-pointer !w-auto !h-auto stroke-9 !-rotate-180"
+    />
+  </button>
+
 </div>
 
 <style>

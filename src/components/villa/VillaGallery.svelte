@@ -131,11 +131,11 @@
       <!-- svelte-ignore a11y-no-static-element-interactions -->
       {#each galleryCategories as category}
         <!-- svelte-ignore a11y-click-events-have-key-events -->
-        <div class="block group" on:click={onClick}>
+        <div class="slide-hover block group overflow-hidden" on:click={onClick}>
           <img
             src={category.url}
             alt={villa.title}
-            class="object-cover h-full w-full"
+            class="object-cover h-full w-full transition-all"
           />
           <div
             class="flex w-full justify-between absolute bottom-0 flex-wrap pl-4 md:pl-12 pb-2 md:pb-8 items-center"
@@ -170,6 +170,9 @@
 </div>
 
 <style>
+  .slide-hover:hover img{
+    scale: 1.1;
+  }
   .slider {
     list-style: none;
     margin: 0;

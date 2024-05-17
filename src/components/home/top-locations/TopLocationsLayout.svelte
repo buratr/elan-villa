@@ -15,10 +15,8 @@
   let scrollTarget: HTMLDivElement;
 
   function scrollToElement() {
-    // Прокрутка к элементу при помощи метода scrollIntoView()
     scrollTarget.scrollIntoView({ behavior: 'smooth' });
     window.scrollBy(0, -80);
-    //console.log("scrollTarget", scrollTarget)
   }
 
 </script>
