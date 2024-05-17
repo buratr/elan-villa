@@ -5,7 +5,7 @@
 <div class="flex flex-col -mt-[150px]">
   <div class="flex flex-col md:flex-row overflow-hidden md:pt-32">
     <div class="flex md:w-1/2 w-full order-2 top-12 relative items-end">
-      <img src={team} class="w-fit h-fit" alt="team" />
+      <img src={team} class="w-fit h-auto" alt="team" />
     </div>
     <div
       class="flex flex-col md:w-1/2 w-full pl-16 pr-8 md:pr-[15%] order-1 md:order-2 pt-20 md:pt-10 md:pb-10"
