@@ -77,6 +77,8 @@
       handleArrowClick(dir === "rtl" ? "next" : "prev");
     });
   });
+
+
 </script>
 
 <div class="overflow-hidden pt-10">
@@ -90,7 +92,8 @@
             class="{active === slide.id
               ? 'active-select'
               : ''} flex relative flex-col text-center justify-center rounded-[30px] max-w-[260px] pt-16 bg-white sm:bg-white/80 shadow-select px-10 pb-6 gap-4 items-center"
-            on:click={() => (active = index + 1)}
+            
+            on:click={() => (active = index+1)}
           >
             <div
               class="p-4 absolute bg-gradient-to-r from-purple-dark to-purple-darker rounded-full -top-[55px]"

@@ -11,7 +11,7 @@
   <LoyaltyInfo />
   <img
     src={LoyaltyBG}
-    class="absolute hidden md:block left-0 bottom-0"
+    class="absolute hidden md:block left-0 bottom-0 w-full"
     alt=""
   />
   <img

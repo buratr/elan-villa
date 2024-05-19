@@ -61,9 +61,9 @@
       </a>
     </div>
 
-    <div class="md:hidden">
-      <IconBack on:click={() => goto('/all_villas')}>
-        <IconArrowLeft height="32" class="!stroke-black stroke-6" />
+    <div class="md:hidden ">
+      <IconBack class="w-9 h-9 py-2" on:click={() => goto('/all_villas')}>
+        <IconArrowLeft height="14" class="!stroke-black stroke-6 h-3" />
       </IconBack>
     </div>
     <!-- Right side: Links and Menu -->

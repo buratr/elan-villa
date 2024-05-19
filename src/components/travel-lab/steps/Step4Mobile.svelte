@@ -1,5 +1,7 @@
 <script lang="ts">
+  import { onMount, createEventDispatcher } from 'svelte';
   import Circle from "@components/atoms/Circle.svelte";
+  import { writable } from 'svelte/store';
   import StepLayout from "../StepLayout.svelte";
   import specialOffers from "@assets/images/casa-tua.png";
   import ultraLuxe from "@assets/images/652-40.png";
@@ -19,8 +21,13 @@
   import bagIcon from "@assets/icons-json/725-suitcase-travel-baggage-luggage.rough.json?url";
   import Progress from '@components/travel-lab/Progerss.svelte';
   import SeatsRange from '../SeatsRange.svelte';
-
+  import { PlusCircleIcon } from "svelte-feather-icons";
+  
   export let progressVal;
+
+  let valueSeasonsInput:string
+
+  const dispatch = createEventDispatcher();
 
   const collections = [
     {
@@ -92,7 +99,7 @@
     });
   };
 
-  let activeSeasons = [
+  let activeSeasons = writable([
     {
       id: 1,
       title: "Extra Suitcase",
@@ -118,7 +125,7 @@
       title: "Private charter to St Barth",
       active: false,
     },
-  ];
+  ]);
 
   let cars = [
     {
@@ -195,11 +202,21 @@
     },
   ];
 
+  // const selectSeason = (id: number) => {
+  //   activeSeasons.forEach((season, index) => {
+  //     season.id === id
+  //       ? (activeSeasons[index]["active"] = true)
+  //       : (activeSeasons[index]["active"] = false);
+  //   });
+  // };
+
   const selectSeason = (id: number) => {
-    activeSeasons.forEach((season, index) => {
-      season.id === id
-        ? (activeSeasons[index]["active"] = true)
-        : (activeSeasons[index]["active"] = false);
+    activeSeasons.update(seasons => {
+      const index = seasons.findIndex(season => season.id === id);
+      if (index !== -1) {
+        seasons[index]["active"] = !seasons[index]["active"]; // Обновляем данные элемента
+      }
+      return seasons;
     });
   };
 
@@ -212,10 +229,23 @@
   };
 
   const resetSeason = () => {
-    activeSeasons.forEach((season, index) => {
-      activeSeasons[index]["active"] = false;
-    });
+    // activeSeasons.forEach((season, index) => {
+    //   activeSeasons[index]["active"] = false;
+    // });
   };
+
+  const addSeason = ()=>{
+    if(valueSeasonsInput){
+      activeSeasons.update(seasons => [...seasons, {
+        id:$activeSeasons.length+1,
+        title:valueSeasonsInput,
+        active:true,
+      }]);
+      dispatch('activeSeasonsChanged', activeSeasons);
+      valueSeasonsInput=""
+    }
+    
+  }
 
   const handleCar1 = (car: string) => () => {
     activeCar1 = car;
@@ -270,7 +300,7 @@
 
   <span class="text-white text-xs pb-8 pt-10">Special needs</span>
   <div class="flex gap-4 flex-col flex-1 w-full px-8 max-w-[320px]">
-    {#each activeSeasons as season}
+    {#each $activeSeasons as season}
       <div class="flex w-full justify-between">
         <div class="flex flex-col text-white">
           <p>{season.title}</p>
@@ -280,14 +310,24 @@
         </button>
       </div>
     {/each}
-    <Input
-      right
-      on:click={() => {
-        resetSeason();
-      }}
-      placeholder="Other"
-      class="!px-6 bg-white/80 shadow-main min-w-[262px] w-full mt-4"
-    ></Input>
+    <div class="relative flex justify-end items-center">
+      <Input
+        right
+        bind:value={valueSeasonsInput}
+        on:click={() => {
+          resetSeason();
+        }}
+        placeholder="Other"
+        class="!px-6 bg-white/80 shadow-main min-w-[262px] w-full"
+      ></Input>
+      <button
+        on:click={() => {
+          addSeason();
+        }}
+        class="absolute right-2 {valueSeasonsInput?"block":"hidden"}"> <PlusCircleIcon size="32" class="text-[#3E127F]" />
+      </button>
+    </div>
+    
   </div>
 </div>
 

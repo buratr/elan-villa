@@ -32,19 +32,19 @@
 </script>
 
 <div
-  class="footer px-16 pb-8 lg:hidden pt-52 z-0 {bgDark ? 'bg-lab' : ''}"
+  class="footer px-16 pb-8 lg:hidden max-md:pt-32 pt-52 z-0 {bgDark ? 'bg-lab' : ''}"
   style={bgBeige ? "background-image: url(" + BgBeige + ")" : ""}
 >
-  <div class="flex flex-wrap md:pt-20">
+  <div class="flex flex-wrap md:pt-20 ">
     <FooterLogo />
-    <div class="horizontal-separator md:hidden" />
-    <div class="w-full flex-wrap flex justify-between">
+    <!-- <div class="horizontal-separator md:hidden" /> -->
+    <div class="w-full flex-wrap max-md:flex-col flex justify-between">
       <FooterSupport />
       <FooterNewsletter />
     </div>
-    <div class="horizontal-separator md:mx-[10%] mt-16" />
+    <!-- <div class="horizontal-separator md:mx-[10%] mt-16" /> -->
     <FooterLinks />
-    <div class="horizontal-separator my-10" />
+    <!-- <div class="horizontal-separator my-10" /> -->
     <FooterCopyright />
   </div>
 

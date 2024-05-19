@@ -377,10 +377,11 @@ const dispatch = createEventDispatcher();
                 class="!px-6 bg-white/80 shadow-main min-w-[262px] w-full"
               ></Input>
               <button
-              on:click={() => {
-                addSeason();
-              }}
-              class="absolute right-2 {valueSeasonsInput?"block":"hidden"}"> <PlusCircleIcon size="32" class="text-[#3E127F]" /></button>
+                on:click={() => {
+                  addSeason();
+                }}
+                class="absolute right-2 {valueSeasonsInput?"block":"hidden"}"> <PlusCircleIcon size="32" class="text-[#3E127F]" />
+              </button>
             </div>
             
           </div>

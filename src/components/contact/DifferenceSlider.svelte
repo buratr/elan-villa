@@ -56,7 +56,7 @@
     outerWidth: number;
 
   //$: width = outerWidth >= 1600 ? "28%" : outerWidth > 960 ? "40%" : "55%";
-  $: width = outerWidth >= 1600 ? "28%" : outerWidth > 960 ? "40%" : "55%";
+  $: width = outerWidth >= 1600 ? "548px" : outerWidth > 960 ? "40%" : "55%";
   //$: width = outerWidth >= 960 ? "35%" : "100%";
 
   $: {console.log(index)}
@@ -144,7 +144,7 @@
     />
   </button>
   <button
-    on:click={() => index++}
+    on:click={() => {if(index===0 && outerWidth > 960){index=2}else{index++}}}
     class=" {index!==galleryCategories.length-1?"block":"hidden"} bg-white/75 p-2 rounded-full right-4 absolute top-1/2 !-translate-y-1/2 z-10  hover:scale-110"
   >
     <IconArrowLeft

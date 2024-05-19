@@ -11,8 +11,8 @@
   <SliderInfo />
   <VillasSlider />
   <VillasCTA />
-  <div class="absolute left-0 -bottom-12 flex overflow-hidden">
+  <div class="absolute left-0 -bottom-12 flex overflow-hidden w-full">
     <img src="{VillIlustration}" alt="villa one line">
-    <img src="{VillVector}" class="pb-[111px] -ml-[3px] object-cover object-left" alt="villa one line">
+    <img src="{VillVector}" class="pb-[111px] -ml-[3px] object-cover object-left w-full" alt="villa one line">
   </div>
 </div>
